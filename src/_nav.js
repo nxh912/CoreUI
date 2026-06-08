@@ -24,6 +24,17 @@
 export default [
   {
     component: 'CNavItem',
+    name: 'MRO coder',
+    to: '/forms/mro_form',
+    icon: "cidSpreadsheet",
+    badge: {
+      color: 'primary',
+      text: 'AI',
+    },
+  },
+  
+  {
+    component: 'CNavItem',
     name: 'Dashboard',
     to: '/dashboard',
     icon: 'cil-speedometer',
@@ -32,6 +43,7 @@ export default [
       text: 'NEW',
     },
   },
+  /*  theme
   {
     component: 'CNavTitle',
     name: 'Theme',
@@ -52,6 +64,8 @@ export default [
     component: 'CNavTitle',
     name: 'Components',
   },
+  */
+
   {
     component: 'CNavGroup',
     name: 'Base',
@@ -415,7 +429,9 @@ export default [
       text: 'NEW',
       shape: 'pill',
     },
-  },
+  }, 
+
+  /**
   {
     component: 'CNavTitle',
     name: 'Extras',
@@ -448,4 +464,6 @@ export default [
       },
     ],
   },
+  */
+
 ]

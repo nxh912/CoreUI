@@ -38,7 +38,19 @@ const routes = [
     component: DefaultLayout,
     redirect: '/dashboard',
     children: [
-      {
+      { // MRO
+        path: '/__MRO',
+        name: 'MRO',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/dashboard/Dashboard.vue'
+          ),
+      },
+
+      { // dashboard
         path: '/dashboard',
         name: 'Dashboard',
         // route level code-splitting
@@ -49,6 +61,8 @@ const routes = [
             /* webpackChunkName: "dashboard" */ '@/views/dashboard/Dashboard.vue'
           ),
       },
+
+      /**
       {
         path: '/theme',
         name: 'Theme',
@@ -64,6 +78,9 @@ const routes = [
         name: 'Typography',
         component: () => import('@/views/theme/Typography.vue'),
       },
+      */
+
+      /** 
       {
         path: '/base',
         name: 'Base',
@@ -156,6 +173,9 @@ const routes = [
           },
         ],
       },
+      */
+
+      /** BUTTONS
       {
         path: '/buttons',
         name: 'Buttons',
@@ -183,6 +203,8 @@ const routes = [
           },
         ],
       },
+      */
+
       {
         path: '/forms',
         name: 'Forms',
@@ -193,6 +215,12 @@ const routes = [
         },
         redirect: '/forms/form-control',
         children: [
+          {
+            path: '/forms/mro_form',
+            name: 'MRO Control',
+            component: () => import('@/views/forms/FormControl.vue'),
+          },
+
           {
             path: '/forms/form-control',
             name: 'Form Control',

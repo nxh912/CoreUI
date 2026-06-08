@@ -81,7 +81,7 @@
     <CCol :xs="12">
       <CCard class="mb-4">
         <CCardHeader>
-          <strong>Vue Form Control</strong> <small>Disabled</small>
+          <strong>MRO Report Upload</strong> <small>Disabled</small>
         </CCardHeader>
         <CCardBody>
           <p class="text-body-secondary small">
@@ -213,21 +213,24 @@
     <CCol :xs="12">
       <CCard class="mb-4">
         <CCardHeader>
-          <strong>Vue Form Control</strong> <small>File input</small>
+          <strong>MRO</strong> <small>upload form</small>
         </CCardHeader>
         <CCardBody>
           <DocsExample href="forms/form-control.html#file-input">
-            <div class="mb-3">
-              <CFormLabel for="formFile">Default file input example</CFormLabel>
-              <CFormInput id="formFile" type="file" />
-            </div>
+
             <div class="mb-3">
               <CFormLabel for="formFileMultiple"
-                >Multiple files input example</CFormLabel
+                >Multiple MRO files:</CFormLabel
               >
               <CFormInput id="formFileMultiple" type="file" multiple />
             </div>
 
+            <!--
+            <div class="mb-3">
+              <CFormLabel for="formFile">upload MRO result file</CFormLabel>
+              <CFormInput id="formFile" type="file" />
+            </div>
+            -->
 
             <!-- 
             <div class="mb-3">
@@ -237,12 +240,14 @@
               <CFormInput id="formFileDisabled" type="file" disabled />
             </div>
             -->
+
             <!-- 
             <div class="mb-3">
               <CFormLabel for="formFileSm">Small file input example</CFormLabel>
               <CFormInput id="formFileSm" type="file" size="sm" />
             </div>
             -->
+
             <!-- 
             <div>
               <CFormLabel for="formFileLg">Large file input example</CFormLabel>

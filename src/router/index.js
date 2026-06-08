@@ -216,9 +216,10 @@ const routes = [
         redirect: '/forms/form-control',
         children: [
           {
+            // http://localhost:3000/#/forms/mro_form
             path: '/forms/mro_form',
             name: 'MRO Control',
-            component: () => import('@/views/forms/FormControl.vue'),
+            component: () => import('@/views/mro_coder/MRO_Control.vue'),
           },
 
           {

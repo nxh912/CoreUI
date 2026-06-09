@@ -53,7 +53,7 @@ const uploadFiles = async () => {
           </div>
         </CCardBody>
 
-        <table class="table">
+        <table class="table table-sm">
           <thead>
             <tr>
               <th>#</th>
@@ -77,24 +77,11 @@ const uploadFiles = async () => {
             </tr>
             <tr>
               <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
+              <td colspan="2">Larry the Bird</td>
               <td>@twitter</td>
             </tr>
           </tbody>
         </table>
-        <CContainer>
-          <CRow>
-            <CCol>1 of 3</CCol>
-            <CCol xs={6}>2 of 3 (wider)</CCol>
-            <CCol>3 of 3</CCol>
-          </CRow>
-          <CRow>
-            <CCol>1 of 3</CCol>
-            <CCol xs={6}>2 of 3 (wider)</CCol>
-            <CCol>3 of 3</CCol>
-          </CRow>
-        </CContainer>
 
       </CCard>
     </CCol>

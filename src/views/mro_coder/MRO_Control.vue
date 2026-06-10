@@ -52,6 +52,10 @@ const uploadFiles = async () => {
           </div>
         </CCardBody>
 
+        <button @click="downloadCSV" class="btn btn-primary mb-3">
+          Save as CSV
+        </button>
+
         <table class="table table-sm">
           <thead>
             <tr>
@@ -82,7 +86,52 @@ const uploadFiles = async () => {
           </tbody>
         </table>
 
+    
       </CCard>
     </CCol>
   </CRow>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+
+// It is much easier to manage and export data if it lives in Vue state rather than parsing raw HTML
+const tableData = ref([
+  { id: 1, firstName: 'Mark', lastName: 'Otto', username: '@mdo', colspan: 1 },
+  { id: 2, firstName: 'Jacob', lastName: 'Thornton', username: '@fat', colspan: 1 },
+  // Replicating your Larry the Bird colspan example safely
+  { id: 3, firstName: 'Larry the Bird', lastName: '', username: '@twitter', colspan: 2 }
+]);
+
+const downloadCSV = () => {
+  // Define CSV Headers
+  const headers = ['#', 'First Name', 'Last Name', 'Username'];
+  
+  // Map rows to CSV format
+  const rows = tableData.value.map(row => [
+    row.id,
+    `"${row.firstName}"`, // Wrapping strings in quotes handles spaces nicely
+    `"${row.lastName}"`,
+    `"${row.username}"`
+  ]);
+
+  // Combine headers and rows, separating columns with commas and rows with newlines
+  const csvContent = [headers, ...rows]
+    .map(e => e.join(","))
+    .join("\n");
+
+  // Create a Blob from the CSV String
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  
+  // Create a temporary hidden link element to trigger the download
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "table_data.csv");
+  link.style.visibility = 'hidden';
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+</script>

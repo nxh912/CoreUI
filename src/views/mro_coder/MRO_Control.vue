@@ -15,7 +15,6 @@ const uploadFiles = async () => {
   for (let i = 0; i < files.value.length; i++) {
     formData.append('files', files.value[i]);
   }
-  alert(2);
 
   try {
     const response = await fetch('http://localhost:8000/upload', {

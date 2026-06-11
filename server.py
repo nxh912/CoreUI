@@ -1,3 +1,4 @@
+import time
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
@@ -11,10 +12,16 @@ client = genai.Client()
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",  # Your Vue local development server
+    "http://127.0.0.1:3000",
+]
+
 # 1. Enable CORS so your Vue frontend can communicate with the backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust this to your frontend URL in production
+    allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -568,20 +575,32 @@ mro_prompt='''
     output the result in JSON format.
 ]'''
 
-def gemini_prompt(mro_prompt, content):
+def gemini_prompt(mro_prompt, content, attempts=3):
     import json
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=[mro_prompt, content]
-    )
-    text = response.text
-    if text.startswith("```json"): text = text.replace("```json","")
-    if text.endswith("```"):       text = text.replace("```","")
+    from google.genai.errors import ServerError
 
-    json_dict = json.loads(text)
-    print(json_dict)
-    assert(0)
-    return json_dict
+    for attempt in range(attempts):
+        try:
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=[mro_prompt, content]
+            )
+            text = response.text
+            if text.startswith("```json"): text = text.replace("```json","")
+            if text.endswith("```"):       text = text.replace("```","")
+
+            json_dict = json.loads(text)
+            
+            print(json.dumps(json_dict, indent=2))
+
+            return json_dict
+        except ServerError as e:
+            if attempt < attempts - 1:
+                print(f"Gemini overloaded (503). Retrying in 2 seconds... (Attempt {attempt + 1}/{attempts})")
+                time.sleep(2)  # Wait briefly before trying again
+            else:
+                # If it fails all 3 times, re-raise the error to let Method 1 handle it
+                raise e
 
 @app.post("/upload")
 async def upload_files(files: List[UploadFile] = File(...)):
@@ -594,8 +613,8 @@ async def upload_files(files: List[UploadFile] = File(...)):
         content=f"{content}\n{filestr}"
 
     ### SEND TO AI: reportstr with mro_prompt
-    print("------------------------ gemini_prompt(mro_prompt, content)")
-    print(f"\n  mro_prompt : {mro_prompt}")
-    print(f"\n  content : {content}")
-    jsonobj = gemini_prompt(mro_prompt, content)
-    return jsonobj
+    #print("------------------------ gemini_prompt(mro_prompt, content)")
+    #print(f"\n  mro_prompt : {mro_prompt}")
+    #print(f"\n  content : {content}")
+    json_obj = gemini_prompt(mro_prompt, content)
+    return json_obj

@@ -38,17 +38,6 @@ const routes = [
     component: DefaultLayout,
     redirect: '/dashboard',
     children: [
-      { // MRO
-        path: '/__MRO',
-        name: 'MRO',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/dashboard/Dashboard.vue'
-          ),
-      },
 
       { // dashboard
         path: '/dashboard',
@@ -205,6 +194,8 @@ const routes = [
       },
       */
 
+
+
       {
         path: '/forms',
         name: 'Forms',
@@ -221,7 +212,7 @@ const routes = [
             name: 'MRO Control',
             component: () => import('@/views/mro_coder/MRO_Control.vue'),
           },
-
+          /*
           {
             path: '/forms/form-control',
             name: 'Form Control',
@@ -267,6 +258,7 @@ const routes = [
             name: 'Validation',
             component: () => import('@/views/forms/Validation.vue'),
           },
+          */
         ],
       },
       {
@@ -338,8 +330,14 @@ const routes = [
         name: 'Widgets',
         component: () => import('@/views/widgets/Widgets.vue'),
       },
+      
     ],
   },
+
+
+
+
+        /*
   {
     path: '/pages',
     redirect: '/pages/404',
@@ -372,6 +370,8 @@ const routes = [
       },
     ],
   },
+       */
+
 ]
 
 const router = createRouter({

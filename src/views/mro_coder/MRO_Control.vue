@@ -2,32 +2,48 @@
 import { ref } from 'vue';
 
 const files = ref(null);
+const isLoading = ref(false);       // tracks whether upload is in progress
+const reportResult = ref(null);     // stores the API response
 
 const handleFileChange = (event) => {
   files.value = event.target.files;
 };
 
 const uploadFiles = async () => {
-  //console.log( files);
   if (!files.value) return;
-  const formData = new FormData();
 
+  const formData = new FormData();
   for (let i = 0; i < files.value.length; i++) {
     formData.append('files', files.value[i]);
   }
 
+  isLoading.value = true;       // show placeholders while waiting
+  reportResult.value = null;    // clear any previous result
+
   try {
-    const response = await fetch('http://localhost:8000/upload', {
+    const response = await fetch('http://127.0.0.1:8000/upload', {
       method: 'POST',
       body: formData,
     });
-    const result = await response.json();
-    console.log(result);
+    reportResult.value = await response.json();   // triggers UI update
+
+    // simulated
+    // simulated
+    // simulated
+    reportResult.value
+    
+    console.log( reportResult.value );
+    // simulated
+    // simulated
+    // simulated
+
   } catch (error) {
-    console.error('Error uploading:', error);
+    console.error('Error uploading:');
+    console.error( error);
+  } finally {
+    isLoading.value = false;    // always stop loading state
   }
 };
-
 
 // It is much easier to manage and export data if it lives in Vue state rather than parsing raw HTML
 const tableData = ref([
@@ -78,23 +94,44 @@ const downloadCSV = () => {
           <strong>MRO</strong> <small>upload form</small>
         </CCardHeader>
         <CCardBody>
+
           <div class="d-flex align-items-end gap-3">
-            
             <div class="mb-0 flex-grow-1">
               <CFormLabel for="formFileMultiple">Multiple MRO files:</CFormLabel>
               <CFormInput id="formFileMultiple" type="file" multiple @change="handleFileChange" />
             </div>
-
             <div>
               <CButton color="primary" @click="uploadFiles">Upload Files</CButton>
             </div>
-            
           </div>
         </CCardBody>
 
-        <button @click="downloadCSV" class="btn btn-primary mb-3">
-          Save as CSV
-        </button>
+        <CCardBody>
+          <!-- Show placeholders only while loading -->
+          <template v-if="isLoading">
+            <CCardTitle v-c-placeholder="{ animation: 'glow', xs: 7 }">
+              AI report: <CPlaceholder :xs="6" />
+            </CCardTitle>
+            <CCardText v-c-placeholder="{ animation: 'glow' }">
+              <CPlaceholder :xs="7" />
+              <CPlaceholder :xs="4" />
+              <CPlaceholder :xs="4" />
+              <CPlaceholder :xs="6" />
+              <CPlaceholder :xs="8" />
+              <CPlaceholder :xs="4" />
+              <CPlaceholder :xs="6" />
+              <CPlaceholder :xs="8" />
+            </CCardText>
+          </template>
+
+          <!-- Show real content once result is available -->
+          <template v-else-if="reportResult">
+            <CCardTitle>AI:</CCardTitle>
+            <CCardText>{{ reportResult }}</CCardText>
+          </template>
+
+          <!-- Nothing shown before upload starts -->
+        </CCardBody>
 
         <CTable striped>
           <CTableHead>
@@ -114,6 +151,7 @@ const downloadCSV = () => {
               <CTableDataCell>@mdo</CTableDataCell>
               -->
             </CTableRow>
+
             <CTableRow>
               <CTableHeaderCell colSpan={4}>
                 <CTable>
@@ -142,6 +180,10 @@ const downloadCSV = () => {
                       <CTableDataCell>Last</CTableDataCell>
                     </CTableRow>
                     -->
+
+
+
+
                   </CTableBody>
                 </CTable>
               </CTableHeaderCell>
@@ -153,6 +195,10 @@ const downloadCSV = () => {
             </CTableRow>
           </CTableBody>
         </CTable>
+
+        <CButton @click="downloadCSV" color="primary" class="mb-3">
+          Save as CSV
+        </CButton>
 
         <!--
         <table class="table table-sm">

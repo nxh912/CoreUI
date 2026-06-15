@@ -32,7 +32,10 @@ export default [
       text: 'AI',
     },
   },
+
   
+  /*  theme
+
   {
     component: 'CNavItem',
     name: 'Dashboard',
@@ -43,7 +46,6 @@ export default [
       text: 'NEW',
     },
   },
-  /*  theme
   {
     component: 'CNavTitle',
     name: 'Theme',
@@ -66,6 +68,8 @@ export default [
   },
   */
 
+
+  /*
   {
     component: 'CNavGroup',
     name: 'Base',
@@ -226,6 +230,9 @@ export default [
       },
     ],
   },
+
+  */
+  /**
   {
     component: 'CNavGroup',
     name: 'Forms',
@@ -431,7 +438,6 @@ export default [
     },
   }, 
 
-  /**
   {
     component: 'CNavTitle',
     name: 'Extras',

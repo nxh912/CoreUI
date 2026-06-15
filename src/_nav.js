@@ -26,13 +26,14 @@ export default [
     component: 'CNavItem',
     name: 'MRO coder',
     to: '/forms/mro_form',
-    icon: "cidSpreadsheet",
+    icon: "cil-speedometer",
+    // -- icon: "cil-table",
+    //icon: 'cil-book',
     badge: {
       color: 'primary',
       text: 'AI',
     },
   },
-
   
   /*  theme
 
@@ -68,8 +69,6 @@ export default [
   },
   */
 
-
-  /*
   {
     component: 'CNavGroup',
     name: 'Base',
@@ -230,8 +229,6 @@ export default [
       },
     ],
   },
-
-  */
   /**
   {
     component: 'CNavGroup',

@@ -37,8 +37,10 @@ def get_aws_client():
 @app.post("/api/v1/generate")
 async def generate_ai_response(request: PromptRequest, aws_client=Depends(get_aws_client)):
     # Example using AWS Bedrock (e.g., Claude 3 Sonnet model)
-    model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
+    model_id = "anthropic.claude-sonnet-4-6"
+    model_id = "global.anthropic.claude-sonnet-4-6"
     
+    model_id = "anthropic.claude-opus-4-8"
     # Structure the payload according to your specific AWS model's expectations
     native_request = {
         "anthropic_version": "bedrock-2023-05-31",
@@ -55,8 +57,8 @@ async def generate_ai_response(request: PromptRequest, aws_client=Depends(get_aw
     try:
         # Call the AWS AI Runtime
         response = aws_client.invoke_model(
-            modelId=model_id,
-            body=bytes(import_json_string(native_request), 'utf-8')
+            modelId = model_id,
+            body=bytes( import_json_string(native_request), 'utf-8')
         )
         
         # Parse output body

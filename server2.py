@@ -15,13 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 1. FIX: Expand the Pydantic schema to handle what your frontend is passing
-class PromptRequest(BaseModel):
-    instruction: str
-    context: str
-    temperature: float = 0.7
-
-# Operational configurations matching your global script state
 ENV_REGION = "ap-southeast-1"  # Singapore
 MODEL_ID = "global.anthropic.claude-sonnet-4-6"
 MAX_TOKENS = 1000
@@ -73,20 +66,23 @@ def bedrock_converse(instruction, text, temperature_val):
         print(f"Error invoking model: {e}")
         raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
 
-
-# 2. FIX: Bind the route to extract variables from the JSON Request Body object
 @app.post("/api/v1/mro_data")
 async def generate_ai_response(data: PromptRequest):
-    # Pull parameters structured cleanly out of the JSON request object
     return bedrock_converse(
         instruction=data.instruction, 
         text=data.context, 
         temperature_val=data.temperature
     )
 
-
 if __name__ == "__main__":
     import uvicorn
     filename = os.path.basename(__file__)
     print(f"FILE : {filename}")
     uvicorn.run(f"{filename[:-3]}:app", host="0.0.0.0", port=8000, reload=True)
+    '''testing
+    curl -X POST -H "Content-Type: application/json" "http://127.0.0.1:8000/api/v1/mro_data" -d '{
+        "instruction": "you are super coder in health care",
+        "context": "list all specialist in medicine",
+        "temperature": 0.7
+    }'
+    '''

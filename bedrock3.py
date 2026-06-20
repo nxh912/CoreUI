@@ -24,34 +24,48 @@ def get_prompt( instruction, text):
     ]
     return prompt
 
-# Initialize the native Bedrock client
-bedrock_client = boto3.client(
-    service_name="bedrock-runtime",
-    region_name=env_region
-)
+def clean_response(text):
+    if text:
+        return text.replace("```json", "").replace("```", "")
 
-print(f"### Converse api, region : {env_region}")
-# Use the unified Converse structure (no provider-specific wrappers needed!)
+    else:
+        return text
 
+def bedrock_converse(instruction, text):
+    # Initialize the native Bedrock client
+    bedrock_client = boto3.client(
+        service_name="bedrock-runtime",
+        region_name=env_region
+    )
+
+    print(f"### Converse api, region : {env_region}")
+    # Use the unified Converse structure (no provider-specific wrappers needed!)
+
+    ##### instruction = "You are a professional coder, and output in JSON format"
+    ##### text = "Hello! Introduce yourself briefly and where made you from"
+    prompt = get_prompt( instruction, text)
+    output_text = {"result": "nothing"}
+
+    try:
+        # Call the converse method instead of invoke_model
+        print(f"### converse api... PROMPT:\n{prompt}\n")
+        response = bedrock_client.converse(
+            modelId= model_id,
+            messages= prompt,
+            inferenceConfig= {
+                "maxTokens": max_tokens,
+                "temperature": temperture,
+            }
+        )
+        
+        # Extracting the text is much simpler with Converse
+        output_text = response["output"]["message"]["content"][0]["text"]
+        print(f"### output_text:\n{output_text}\n")
+
+        return {"result": clean_response(output_text) }
+    except Exception as e:
+        print(f"Error invoking model: {e}")
 
 instruction = "You are a professional coder, and output in JSON format"
-text = "Hello! Introduce yourself briefly"
-prompt = get_prompt( instruction, text)
-
-try:
-    # Call the converse method instead of invoke_model
-    print(f"### converse api... PROMPT:\n{prompt}\n")
-    response = bedrock_client.converse(
-        modelId= model_id,
-        messages= prompt,
-        inferenceConfig= {
-            "maxTokens": max_tokens,
-            "temperature": temperture,
-        }
-    )
-    
-    # Extracting the text is much simpler with Converse
-    output_text = response["output"]["message"]["content"][0]["text"]
-    print(f"### output_text:\n{output_text}\n")
-except Exception as e:
-    print(f"Error invoking model: {e}")
+text = "Introduce yourself briefly and where made you from"
+print(f"AI : {bedrock_converse(instruction, text)}")

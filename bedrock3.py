@@ -6,17 +6,18 @@ os.environ.pop("AWS_BEARER_TOKEN_BEDROCK", None)
 # ap-southeast-1
 import boto3
 
-region="ap-southeast-1"
-
-# Initialize the native Bedrock client
-bedrock_client = boto3.client(
-    service_name= "bedrock-runtime",
-    region_name= region
-)
+## AS IN IAM SETTING
+env_region="ap-northeast-1"
 
 if True: ### Converse
-#if False: ###  Invoke
-    print(f"### Converse api, region : {region}")
+
+    # Initialize the native Bedrock client
+    bedrock_client = boto3.client(
+        service_name="bedrock-runtime",
+        region_name=env_region
+    )
+
+    print(f"### Converse api, region : {env_region}")
     ### ResourceNotFoundException
 
     # Use the unified Converse structure (no provider-specific wrappers needed!)
@@ -47,9 +48,14 @@ if True: ### Converse
         print(f"Error invoking model: {e}")
 
 else:
-    
+    #NOT USED
     ### Invoke
     print(f"### Invoke api, region : {region}")
+
+    bedrock_client = boto3.client(
+        service_name= "bedrock-runtime",
+        region_name= region
+    )
 
     payload = {
         "anthropic_version": "bedrock-2023-05-31",

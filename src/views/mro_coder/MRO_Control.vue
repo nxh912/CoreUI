@@ -21,25 +21,20 @@ const uploadFiles = async () => {
   reportResult.value = null;    // clear any previous result
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/upload', {
+    const response = await fetch("http://127.0.0.1:8000/api/v1/mro_data", {
       method: 'POST',
       body: formData,
     });
-    reportResult.value = await response.json();   // triggers UI update
 
-    // simulated
-    // simulated
-    // simulated
-    reportResult.value
-    
-    console.log( reportResult.value );
-    // simulated
-    // simulated
-    // simulated
+    var jsonobj = await response.json();   // triggers UI update
 
+    jsonobj = 
+    if ('detail' in jsonobj) {
+      jsonobj = jsonobj['detail'];
+      console.log( jsonobj );
+    }
   } catch (error) {
-    console.error('Error uploading:');
-    console.error( error);
+    console.error(error);
   } finally {
     isLoading.value = false;    // always stop loading state
   }
@@ -94,7 +89,6 @@ const downloadCSV = () => {
           <strong>MRO</strong> <small>upload form</small>
         </CCardHeader>
         <CCardBody>
-
           <div class="d-flex align-items-end gap-3">
             <div class="mb-0 flex-grow-1">
               <CFormLabel for="formFileMultiple">Multiple MRO files:</CFormLabel>
@@ -134,66 +128,12 @@ const downloadCSV = () => {
         </CCardBody>
 
         <CTable striped>
-          <CTableHead>
-            <CTableRow>
-              <CTableHeaderCell scope="col">#</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Section</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-              <!-- <CTableHeaderCell scope="col">Heading</CTableHeaderCell>-->
-            </CTableRow>
-          </CTableHead>
-          <CTableBody>
-            <CTableRow>
-              <CTableHeaderCell scope="row">1</CTableHeaderCell>
-              <CTableDataCell>Mark</CTableDataCell>
-              <CTableDataCell>Otto</CTableDataCell>
-              <!--
-              <CTableDataCell>@mdo</CTableDataCell>
-              -->
-            </CTableRow>
-
-            <CTableRow>
-              <CTableHeaderCell colSpan={4}>
-                <CTable>
-                  <CTableHead>
-                    <CTableRow>
-                      <CTableHeaderCell scope="col">Section</CTableHeaderCell>
-                      <CTableHeaderCell scope="col">Field</CTableHeaderCell>
-                      <CTableHeaderCell scope="col">Detail</CTableHeaderCell>
-                    </CTableRow>
-                  </CTableHead>
-                  <CTableBody>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">A</CTableHeaderCell>
-                      <CTableDataCell>First</CTableDataCell>
-                      <CTableDataCell>Last</CTableDataCell>
-                    </CTableRow>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">B</CTableHeaderCell>
-                      <CTableDataCell>First</CTableDataCell>
-                      <CTableDataCell>Last</CTableDataCell>
-                    </CTableRow>
-                    <!--
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">C</CTableHeaderCell>
-                      <CTableDataCell>First</CTableDataCell>
-                      <CTableDataCell>Last</CTableDataCell>
-                    </CTableRow>
-                    -->
-
-
-
-
-                  </CTableBody>
-                </CTable>
-              </CTableHeaderCell>
-            </CTableRow>
-            <CTableRow>
-              <CTableHeaderCell scope="row">2</CTableHeaderCell>
-              <CTableDataCell colSpan={2}>Larry the Bird</CTableDataCell>
-              <CTableDataCell>@twitter</CTableDataCell>
-            </CTableRow>
-          </CTableBody>
+          <textarea 
+            class="form-control" 
+            id="AIOutput" 
+            rows="20" 
+            v-model="reportResult"
+          ></textarea>
         </CTable>
 
         <CButton @click="downloadCSV" color="primary" class="mb-3">

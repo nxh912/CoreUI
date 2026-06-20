@@ -376,6 +376,59 @@ mro_prompt='''prompt = [
     6.
     Attending and discharge clinicians
     7. Indication if deceased or transferred"
+
+    presented the output in JSON format, using headers:
+    ['(A) Principal Diagnosis':
+        [1. Principal Diagnosis,
+         2. Principal diagnosis/problem,
+         3. Status:
+           [a. New diagnosis,
+            b. Dates cited and source,
+            c. Case-specific details]
+         4. Citation,
+         5. Investigation,
+         6. Careplan:
+         ['a. Related current clinical care',
+          'b. Clinical management details'
+         ]
+        ],
+      '(B) Secondary Diagnoses':
+        [1. Secondary Diagnosis,
+        2. Status:
+           [a. New diagnosis,
+            b. Dates cited and source,
+            c. Case-specific infection details],
+        3. Citation:
+           [a. Quote,
+            b. Primary source,
+            c. Associated lab results,
+            d. New or existing,
+            e. Complications,
+            f. Inconclusive/versus,
+            g.  Resolved conditions],
+        4. Investigation:
+           [a. Detailed treatments,
+            b. Investigation results]],
+        5. Careplan:
+           [a. Related care]],
+      '(C) Diabetes Mellitus Documentation',
+      '(D) Bedside & Invasive Procedures',
+      '(E) Medication Changes During Admission',
+      '(F) From Allied Health and Nursing Assessments':
+       ['1. Speech therapist',
+        '2. Dietitian',
+        '3. Podiatrist',
+        '4. LDAs/wound']
+     '(G) Laboratory & Renal Panel Findings',
+     '(H) Other Diagnoses (Noted & Treated on Ward)',
+     '(I) Important Status Documentation',
+     '(J) Additional Sources & Ancillary Findings',
+     '(K) Summary of Admission Events',
+     '(L) Demographic Data',
+     '(M) Past Medical History',
+     '(N) Consultation & Interdisciplinary Notes',
+     '(O) Cases with Death'
+    ]
 ]'''
 
 def get_prompt(instruction, text):
@@ -456,6 +509,3 @@ if __name__ == "__main__":
         "temperature": 0.7
     }'
     '''
-    
-    
-

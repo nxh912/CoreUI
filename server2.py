@@ -1,7 +1,7 @@
 import os
 import json
 import boto3
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -19,6 +19,12 @@ ENV_REGION = "ap-southeast-1"  # Singapore
 MODEL_ID = "global.anthropic.claude-sonnet-4-6"
 MAX_TOKENS = 1000
 
+class PromptRequest(BaseModel):
+    instruction: str
+    context: str
+    temperature: float = 0.7
+    max_tokens: int = 500
+
 def get_prompt(instruction, text):
     return [
         {
@@ -35,7 +41,7 @@ def clean_response(text):
         return text.replace("```json", "").replace("```", "").strip()
     return text
 
-def bedrock_converse(instruction, text, temperature_val):
+def bedrock_converse(instruction, text, temperature):
     # CRITICAL ENVIRONMENT CLEANUP: Pop out conflicting bearer keys before client initiation
     os.environ.pop("AWS_BEARER_TOKEN_BEDROCK", None)
 
@@ -54,7 +60,7 @@ def bedrock_converse(instruction, text, temperature_val):
             messages=prompt,
             inferenceConfig={
                 "maxTokens": MAX_TOKENS,
-                "temperature": temperature_val,
+                "temperature": temperature,
             }
         )
         
@@ -66,12 +72,12 @@ def bedrock_converse(instruction, text, temperature_val):
         print(f"Error invoking model: {e}")
         raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
 
-@app.post("/api/v1/mro_data")
+@app.post("/api/v1/mro_data", response_model=None)
 async def generate_ai_response(data: PromptRequest):
     return bedrock_converse(
         instruction=data.instruction, 
         text=data.context, 
-        temperature_val=data.temperature
+        temperature=data.temperature
     )
 
 if __name__ == "__main__":

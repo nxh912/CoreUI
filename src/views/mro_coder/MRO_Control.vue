@@ -28,7 +28,6 @@ const uploadFiles = async () => {
 
     var jsonobj = await response.json();   // triggers UI update
 
-    jsonobj = 
     if ('detail' in jsonobj) {
       jsonobj = jsonobj['detail'];
       console.log( jsonobj );

@@ -1,0 +1,381 @@
+
+********** Start of Report **********
+CaseIdentificationNumber : 1590212343;
+MessageTimestamp : 2009-03-06 16:36:06;
+EventTimestamp : 2009-03-06 16:36:06;
+TxnTimestamp : 2009-03-06 16:36:06;
+AdmitTimestamp : 2009-02-28 23:50:00;
+FreeTextDiagnosisDescription : Report Bellow;
+[REDACTED-NAME] D/O [REDACTED-NAME]
+PSN-86095CFF 
+ 74/Indian/Female 
+ Non-smoker 
+ . 
+ PMHx: 
+ 1. HTN 
+ 2. DM 
+ 3. Osteoporosis knees 4 years 
+ 4. Varicose veins 
+ 5. L) breast ca s/p mastectomy 2006. (Dr [REDACTED-DOCTOR]). Did not turn up for chemo or radiotherapy as family against it 
+ 6. Admitted 5/2/09 - 7/2/09. Acute Bronchitis. Treated with Augmentin & nebs. F/U Dr [REDACTED-DOCTOR] 
+  
+ 7. Last admitted NUH 11-17/02/09 for SOB ?secondary to breast cancer-linked polymyositis 
+ - on nebs 6H/PRN 
+ - however during ward rounds, noted that patient only desaturated to 90-91% on room air when lying flat, paradoxical movements of her abdomen noted during respiration 
+ - For pulmonary function test 11/2/09 
+ - FVC 0.78-> 0.80 FEV1 0.72->0.66 FEV1/FVC 92%->82% PEF 3.16 Vc <20ml/kg 
+ - Neuro referral made on 11/2/09, s/b Dr [REDACTED-DOCTOR]: On examination, slight weakness of proximal muscles 4+/5, no spinal tenderness, gloves and stocking loss of sensation, loss of proprioception, no fatiguability, neck flexion 4/5. no ptosis.  
+ - Impression: SOB for investigation, likely DM neuropathy. Suggested NIF and lung function test, NCS and EMG rep simulator, reviewed by Prof [REDACTED-DOCTOR]: Polyneuropathy - diabetes to rule out proximal myopathy. Suggested CK and aldolase, ESr, cRP  
+ - ESR 56 CRP 21 CK 44 Aldolase 6.6 
+ - EMG and NCS done, verbal report was that both tests were normal , formal report pending upon discharge 
+ - Reviewed by Breast Surgeon Dr [REDACTED-DOCTOR] on 12/2: Impression - likely related to Ca breast / DM neuropathy 
+ - Reviewed by Med Onco Dr [REDACTED-DOCTOR]: Impression SOB for ix, hx of locally advanced Breast Ca . suggested restaging workup, transthoracic ECHO to rule out cardiac cause, BMD. KIV to start Aromatase inhibitors 
+ - Bloods on 16/2: Na 130 K 4.5 U 3.5 Cr 37 HbA1c 9.4% 
+ - Daily nocturnal NIF from 13/2 - 16/2: -40 -> -30 -> -40 -> -60 -> -60 cm H2O 
+ - CT brain on 13/2: No significant intracranial abnormality detected. 
+ - CT thorax and abdomen: Post left mastectomy with a seroma.  
+ Numerous nodules noted in the left mammary fat, left thoracic wall and left supraclavicular area. Nodules are also present in the left superior mediastinum and right axilla. A round nodule is also present in the right lower lobe. All these nodules are presumably metastatic in nature.~No metastatic disease below the diaphragm 
+ - Bone scan on 16/2: No scintigraphic evidence of bony metastasis.~No significant change seen compare to the previous scan 
+ - Reviewed by Dr [REDACTED-DOCTOR] on 17/2: Impression- likely relapsed Ca Breast with subcut nodules +/- Right lower lobe lung mets. Suggested BMD ASAP, plan to start AI. Started Femara (Letrozole) 2.5mg Om upon discharge 
+ - Reviewed by Neuro: Suggested to send AchR and MuSK antibodies. 
+ - Sleep study done on 16/2: Baseline SPo2 88%, min Spo2 77%. Desaturation on lying flat, Very short REM period, further desaturation assoc with REM 
+ - Dr [REDACTED-DOCTOR] s/t family, however they were currently not keen for nocturnal BIPAP 
+ - s/t family, not keen for MuSk antibodies testing, noted the cost of the test. Bloods despatched for AcHR antibodies, results pending upon discharge 
+ - reviewed by Dr [REDACTED-DOCTOR] on 17/2: For outpt single fiber EMG and fast phase repstim to exclude LEMS, outpatient MRI C-spine and TCU Dr [REDACTED-DOCTOR] 2 weeks after all the investigations are done 
+ - Discharged well and afeb on 17/2/09 
+ . 
+ . 
+ Now admitted with SOB 1/7 
+ Acute onset at 5am 
+ Difficulty sleeping due to SOB & orthopnea 
+ R) sided chest pain (pleuritic). Worse with inspiration. Says the chest pain causes her SOB 
+ No cough/hemoptysis/recent fevers/URTI 
+ . 
+ OE: 
+ Alert tachypneic speaking in phrases 
+ T 36, HR 100, BP 160/97, SpO2 98% 4L VM 
+ H: dual 
+ L: reduced A/E bilat. No wheeze or creps 
+ Neuro grossly normal 
+ Calves supple 
+ . 
+ IX on admission: 
+ WCC 12.43, Hb 12.8, Plt 277, Neut 10.16 (81.7%) 
+ Na 130, K 3.8, U 4.0, Cr 40 
+ TropT <0.01, CK 26, CKMB 2.8 
+ HC 13.3 
+ CXR: no PTX or consolidation 
+ ECG: sinus tachycardia 
+ D-dimer 728 
+ CTPA: No PE. Nodular soft tissue densities in the lungs, left axilla and posterior to the manubrium - consistent with metastases 
+ . 
+ Issues: 
+ 1) SOB ?secondary to breast cancer-linked polymyositis 
+  - Re-admitted before TCUs 
+  - Acetylcholine Rcpt Ab (17/2/09) <0.07 
+  - Outpatient NCS (27/2/09): Nerve conduction study within normal limits. Needle EMG did not show any denervation changes 
+  - MRI C-spine: C3/4 - mild central disc protrusion C4/5 - small central osteochondral bar just indenting on the cord with no cord edema noted 
+ - There is cervical spondylosis noted. No bony metastasis is detected in the imaged cervical spine.  
+  - Monitored parameters & SpO2 4H 
+  - Kept SpO2 88-92% 
+  - Started on clexane for DVT prophylaxis 
+  - Now agreeable for nightime BiPAP 
+  - Discharged well on 6/3/09  
+ - son is in the midst of obtaining night time BIPAP for patient  
+ - explained to son that patient may become SOB without BIPAP machine  
+ - son understands and will try to get BIPAP machine asap, but keen to bring patient home  
+ . 
+ BIPAP settings on ward: 12/6 x 15, RA, leak 7 mls, VT 323, RR 20/min - latest input from respiratory therapist.  
+ . 
+ * if patient returns to ED with SOB and chronic CO2 retention with type 2 resp failure picture, to start NIV*  
+ . 
+ TCU Neuro and Med onco old dates  
+ TCU respi Dr [REDACTED-DOCTOR] x 1/12 
+ as above 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1590552217;
+MessageTimestamp : 2009-09-14 15:05:49;
+EventTimestamp : 2009-09-14 15:05:49;
+TxnTimestamp : 2009-09-14 15:05:49;
+AdmitTimestamp : 2009-09-05 19:21:00;
+FreeTextDiagnosisDescription : Report Bellow;
+[REDACTED-NAME] D/O [REDACTED-NAME]
+PSN-86095CFF 
+ 75y indian female 
+ non smoker 
+ premorbid: home bound 
+ . 
+ PMHx: 
+ 1) Metastatic Breast CA 
+ - f/u Dr [REDACTED-DOCTOR] (NUH) 
+ a. first presented in Dec 2006 with Left Breast Lump: 5cm and nipple retraction 
+ - Core bx done then: invasive ducal carcinoma; ER/PR positive; Cerb B2 negative 
+ - no metastases then 
+ - offered SMAC but patient and family not prepared for surgery then: started on Tamoxifen Jan 2007 
+ b. MRI L Breast done July 2008: Large left breast carcinoma with skin involvement anteriorly and inferiorly, adj satelllite nodules and L axillary LN involvement 
+ - offered surgery again: pt and family initially refused, but agreed for surgery on 04/08/09 
+ - patient had Left SMAC on 14/08/09: intraop findings - 6cm tumor with 2 ulcers, one through the nipple and another abt 1cm size on the infra-mammary fold. Multiple enlarged matted nodes with encasement of axillary vein and gross nodal extension 
+ - defaulted on recommended post-op RT 
+ c. Presented to Respiratory medicine in Feb 2009 with c/o SOB: found to have Lung mets 
+ - lung function test done then showed: restrictive lung disease picture 
+ - CT thorax and abdomen done 13/02/09 : Post left mastectomy with a seroma. Numerous nodules noted in the left mammary fat, left thoracic wall and left supraclavicular area. Nodules are also present in the left superior mediastinum and right axilla. A round nodule is also present in the right lower lobe. All these nodules are presumably metastatic in nature. No metastatic disease below the diaphragm. 
+ - Bone scan done then: no mets 
+ - CT brain 13/02/09: no mets 
+ - started on Letrozole 2.5mg OM on discharge 
+ d. Progressive disease noted on 29/06/09: found to have brain metastases 
+ - on f/u appt with Dr [REDACTED-DOCTOR] in clinic: c/o increasingly felling unvell, decreased effort tolerance and difficulty swallowing 
+ - repeat metastatic w/u done 
+ - CT Brain 13/07/09: Multiple enhancing lesion seen in the grey white matter junction as well as in the deep brain matter in keeping with metastasis; Old infarct and chronic ischemic changes as described; No acute intracranial abnormality is detected.  
+ - currently, completed 10 fractions of WBRT on 04/09/09; 22 fractions of RT to chest wall (to have been completed on 08/09/09) 
+ . 
+ 2) DM 
+ 3) Hypertension 
+ 4) Osteoporosis 
+ 5) Varicose Veins 
+ . 
+ current admission for c/o - 
+ 1) SOB 
+ - worsening x 4/7 
+ - background of SOB x 8/12 
+ - a/w minimal cough and sputum 
+ . 
+ NIL fever/CP 
+ . 
+ At the Emergency Department: 
+ BP 138/106; HR 67; SpO2 89% on RA 
+ ABG on IN O2 2L: pH 7.303, pCO2 63.5, pO2 125, BE 5 
+ NIV commenced at ED at settings 12/6, FiO2 40, subsequently decreased ti FiO2 30 
+ Repeat ABG on NIV 12/6 FiO2 30: pH 7.32, pCO2 63.7, pO2 105, BE 7 
+ . 
+ patient transferred to medical HD as no NIV bed was available in GW at the time 
+ . 
+ Ix done - 
+ Hb 12.9 TWC 18.98 Plt 210 
+ Na 124 K 4.1 U 4.7 Cr 36 
+ CK 20 CKMB 2.4 Trop T < 0.01 
+ ECG: no acute changes 
+ CXR: Suboptimal inspiratory effort. Air space changes in the right lower zone may represent early consolidation.No pneumothorax seen.Heart size cannot be accurately assessed in this projection 
+ . 
+ MICU issues: 
+ 1) Type 2 Respiratory failure secondary to Pneumonia 
+ - started on NIV 24/4 FiO2 30 
+ - started on IV Augmentin, Azithromycin and Fortum on admission 
+ - Azithromycin and Fortum latera discontinued on 06/09/09  
+ - respiratory culture grew Klebsiella S: Augmentin 
+ - weaned to VM 50 on 08/09/09 with SpO2 at 97-98% 
+ . 
+ 2) Metastatic Breast CA - with mets to chest wall, bilateral lungs and brain 
+ - started on PO Morphine 2.5mg Q4H for SOB 
+ - continued on PO Letrozole 
+ - planned for completion of last 2 RT sessions with radiation oncologist once patient more stable 
+ - palliative care team involved and family conference held on 08/09/09 with patient's son-in-law and nephew: family understanding reached and agreeable for maximum comfort and palliative measures, not for NIV. 
+ . 
+ 3) Hyponatremia secondary to dehydration 
+ - started on IV fluid hydration on admission 
+ - repeat Na: 137 
+ . 
+ transferred to GW on 08/09/09  
+ . 
+ GW issues: 
+ 1) Metastatic Breast CA - with mets to chest wall, bilateral lungs and brain 
+ - patient for palliative care, no NIV, comfort measures only 
+ - patient continued to be SOB and unfit to continue RT 
+ - palliative team r/v:  
+ - SC Morphine infusion started; 
+ - NBM for now in view of SOB; 
+ - SC Haloperidol given for relief of N+V 
+ - patient became less distressed with above management 
+ - however, patient found to have increased SOB on 11/09/09 hence, S/C Morphine infusion dose incresaed; Patient's family updated re: DIL and to keep vigil 
+ - on 11/09/09 1130h: patient found to be unresponsive with unrecordable vital signs; NIL spontaneous breathing; Doll's reflex negative and asystole on ECG. 
+ - pronounced dead at 1130hrs 
+ - cause of death: metastatic Breast CA 
+ NIL 
+ as above 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1590161064;
+MessageTimestamp : 2011-06-29 18:01:11;
+EventTimestamp : 2011-06-04 13:35:44;
+TxnTimestamp : 2011-06-04 13:35:44;
+AdmitTimestamp : 2009-02-05 22:42:00;
+FreeTextDiagnosisDescription : Report Bellow;
+74 year old Indian female 
+ . 
+ PMHx: 
+ 1) HTN 
+ 2) DM 
+ 3) Osteoporosis 
+ 4) Varicose veins 
+ 5) Left breast CA 
+     Operated in 2006 
+     then underwent chemotherapy  
+ Now admitted with  
+ c/o SOB for 1 week gradually worsening on admission also at rest  
+  and h/o PND for 1 week with orthopnea  
+ c/o cough with whitish phlegm for 1 week  
+  no fever 
+  
+ Physical examination: 
+ Alert 
+ Afebrile BP 120/80 P 66/min  
+ CVS: S1S2 
+ Respi: clear 
+ Abdo: soft, non-tender 
+ CNS: unremarkable 
+  
+ Issues during admission: 
+ 1) Acute bronchitis 
+     She was treated with Augmentin and nebulisation  
+     She responded to it. 
+     was off oxygen next day and SOB improved. 
+   Her atenolol was stopped. KIV to start Amlodipine if BP goes up again. 
+ Initial ABG done was suggestive of CO2 retention but then it resolved with Nebulisation. 
+ All other Blood investigation including FBC, Renal Panel NT Pro BNP was normal. 
+ Follow up polyclinic withy memo. 
+ . 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1590179144;
+MessageTimestamp : 2011-06-29 18:01:16;
+EventTimestamp : 2011-06-04 13:36:32;
+TxnTimestamp : 2011-06-04 13:36:32;
+AdmitTimestamp : 2009-02-11 01:57:00;
+FreeTextDiagnosisDescription : Report Bellow;
+[REDACTED-NAME] D/O [REDACTED-NAME]
+PSN-86095CFF 
+ 74/Indian/Female 
+ . 
+ PMHx: 
+ 1. HTN 
+ 2. DM 
+ 3. Osteoporosis knees 4 years 
+ 4. Varicose veins 
+ 5. L) breast ca s/p mastectomy 2006. (Dr [REDACTED-DOCTOR]). Did not turn up for chemo or radiotherapy as family against it 
+ 6. Last admitted NUH 5/2/09 - 7/2/09. Acute Bronchitis. Treated with Augmentin & nebs 
+ 7. Non-smoker 
+ . 
+ Re-admitted with SOB 2/7 
+ Desaturates to SpO2 91-92% on lying down 
+ Dry cough. No sputum 
+ Mostly exertional SOB. Also on lying down 
+ No fevers 
+ No contact hx 
+ Also complaining to weakness of LL past 4 years, also assoc with knee pain. 
+  
+ . 
+ OE: 
+ T 37 
+ BP 160/80, HR 80, RR 20 
+ Alert awake 
+ HS: Dual nil murmurs 
+ L: bibasal creps L>R 
+ Abdo SNT 
+ Neuro: 
+ Proximal myopathy 
+ No diplopia 
+ No fatiguebility 
+ No past pointing 
+ Reflexes 2+ & downgoing bilat 
+ Denies sensory symptoms 
+ Proprioception intact. R 5/5, L 4/5 
+ Power UL 4/5 bilat. LL 5/5 bilat 
+ . 
+ IX on admission: 
+ WCC 8.75, Hb 12.4, MCV 90.6, Plt 293, Neut 5.80 (66.3%) 
+ Na 129, K 4.5, U 4.7, Cr 42 
+ Alb 39, Bil total 7, Bil conj 3, Bil unconj 4, AST 33, ALT 28, ALP 79, LDH 466 
+ ABG on admission: pH 7.37, pCO2 42.0, pO2 72.0, HCO3 24.4, BE -1.0, O2 sat 94% 
+ D-dimer 188 BNP 220 (done 5/2/09) 
+ CXR: bilat streakiness 
+ . 
+ Issues: 
+ 1) SOB ?secondary to breast cancer-linked polymyositis 
+ - on nebs 6H/PRN 
+ - however during ward rounds, noted that patient only desaturated to 90-91% on room air when lying flat, paradoxical movements of her abdomen noted during respiration 
+ - For pulmonary function test 11/2/09 
+ - FVC 0.78-> 0.80 FEV1 0.72->0.66 FEV1/FVC 92%->82% PEF 3.16 Vc <20ml/kg 
+ - Neuro referral made on 11/2/09, s/b Dr [REDACTED-DOCTOR]: On examination, slight weakness of proximal muscles 4+/5, no spinal tenderness, gloves and stocking loss of sensation, loss of proprioception, no fatiguability, neck flexion 4/5. no ptosis.  
+ - Impression: SOB for investigation, likely DM neuropathy. Suggested NIF and lung function test, NCS and EMG rep simulator, reviewed by Prof [REDACTED-DOCTOR]: Polyneuropathy - diabetes to rule out proximal myopathy. Suggested CK and aldolase, ESr, cRP  
+ - ESR 56 CRP 21 CK 44 Aldolase 6.6 
+ - EMG and NCS done, verbal report was that both tests were normal , formal report pending upon discharge 
+ - Reviewed by Breast Surgeon Dr [REDACTED-DOCTOR] on 12/2: Impression - likely related to Ca breast / DM neuropathy 
+ - Reviewed by Med Onco Dr [REDACTED-DOCTOR]: Impression SOB for ix, hx of locally advanced Breast Ca . suggested restaging workup, transthoracic ECHO to rule out cardiac cause, BMD. KIV to start Aromatase inhibitors 
+ - Bloods on 16/2: Na 130 K 4.5 U 3.5 Cr 37 HbA1c 9.4% 
+ - Daily nocturnal NIF from 13/2 - 16/2: -40 -> -30 -> -40 -> -60 -> -60 cm H2O 
+ - CT brain on 13/2: No significant intracranial abnormality detected. 
+ - CT thorax and abdomen: Post left mastectomy with a seroma.  
+ Numerous nodules noted in the left mammary fat, left thoracic wall and left supraclavicular area. Nodules are also present in the left superior mediastinum and right axilla. A round nodule is also present in the right lower lobe. All these nodules are presumably metastatic in nature.~No metastatic disease below the diaphragm 
+ - Bone scan on 16/2: No scintigraphic evidence of bony metastasis.~No significant change seen compare to the previous scan 
+ - Reviewed by Dr [REDACTED-DOCTOR] on 17/2: Impression- likely relapsed Ca Breast with subcut nodules +/- Right lower lobe lung mets. Suggested BMD ASAP, plan to start AI. Started Femara (Letrozole) 2.5mg Om upon discharge 
+ - Reviewed by Neuro: Suggested to send AchR and MuSK antibodies. 
+ - Sleep study done on 16/2: Baseline SPo2 88%, min Spo2 77%. Desaturation on lying flat, Very short REM period, further desaturation assoc with REM 
+ - Dr [REDACTED-DOCTOR] s/t family, however they were currently not keen for nocturnal BIPAP 
+ - s/t family, not keen for MuSk antibodies testing, noted the cost of the test. Bloods despatched for AcHR antibodies, results pending upon discharge 
+ - reviewed by Dr [REDACTED-DOCTOR] on 17/2: For outpt single fiber EMG and fast phase repstim to exclude LEMS, outpatient MRI C-spine and TCU Dr [REDACTED-DOCTOR] 2 weeks after all the investigations are done 
+ - Discharged well and afeb on 17/2/09 
+ TCU Oncology Dr [REDACTED-DOCTOR] x 4/52, Renal Panel 1 OA 
+ TCU Neuro Dr [REDACTED-DOCTOR] x 2/52 after scans done, trace AchR antibodies and NCS and EMG OA, outpt EMG and fast phase repstim on a Friday. Outpt MRI C-spine 
+ TCU Dr [REDACTED-DOCTOR], Sleep Clinic x 3/52 
+ Outpatient BMD on 19/2/09 
+ as above 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1580452098;
+MessageTimestamp : 2011-06-05 21:50:45;
+EventTimestamp : 2011-06-03 13:19:34;
+TxnTimestamp : 2011-06-03 13:19:34;
+AdmitTimestamp : 2008-08-13 16:52:00;
+FreeTextDiagnosisDescription : Report Bellow;
+74 year old Indian female 
+ . 
+ PMHx: 
+ 1) HTN 
+ 2) DM 
+ 3) Osteoporosis 
+ 4) Varicose veins 
+ 5) Left breast CA 
+ - first presented with Left breast lump in Dec 2006 
+ - underwent chemotherapy - Tamoxifen until 1 month ago 
+ . 
+ Elective admission for Left breast CA removal 
+ - slight productive cough x 3days 
+ - no fever 
+ . 
+ Physical examination: 
+ Alert 
+ Afebrile BP 130/80 P 58/min 
+ Breast: Large firm mass palpable at Left breast with inverted nipple.  
+ CVS: S1S2 
+ Respi: clear 
+ Abdo: soft, non-tender 
+ CNS: unremarkable 
+ . 
+ Issues during admission: 
+ 1) Left breast CA  
+ - Patient underwent Left total mastectectomy, partial excisoin of pect major and level 3 axillary clearance on 14/8/08 
+ - Op findings: 6 cm tumour with 2 ulcers, one through the nipple and another about 1 cm size on the infra mammary fold. multiple enlarged matted notes with encasement of axillary vein and gross extra nodal extension. 
+ - Patient tolerated operation well 
+ - seen by breast care nurse in the ward 
+ - eating and ambulating well prior to home 
+ . 
+ Plan: TCU Breast care nurse and Philip next week - date to be arranged by BCN 
+ TCU Breast care nurse and Philip next week - date to be arranged by BCN 
+ OPS to f/u with DM control. 
+ Operative Procedure: left total mastectectomy, partial excisoin of pect major and level 3 axillary clearance 
+ 
+\N
+
+********** End of Report **********

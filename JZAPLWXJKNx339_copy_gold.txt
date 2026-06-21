@@ -1,0 +1,446 @@
+
+
+********** Start of Report **********
+CaseIdentificationNumber : 1511341938;
+MessageTimestamp : 2011-06-03 13:22:00;
+EventTimestamp : 2011-05-31 10:52:03;
+TxnTimestamp : 2011-05-31 10:52:03;
+AdmitTimestamp : 2011-05-24 05:40:00;
+FreeTextDiagnosisDescription : Report Bellow;
+62 female Chinese 
+ ADLi community ambuklant 
+ NKDA 
+ . 
+ Background: 
+ Metastatic right breast Cancer to bone ER/PR +ve 
+ S/P wide excision and sentinel node resection in 2005 
+ S/P RT 
+ Recurred with liver mets 
+ Previously defaulted F/U and stopped tamoxifen 
+ (CT 18/4/2011) 
+ 1)	No evidence of tumour recurrence 
+ 2)	Largely stable right upper lobe nodule 
+ 3)	Interval reduce in size of the hepatic hypodensities. 
+ 4)	Largely stable extensive bony metastasis 
+ . 
+ Currently 
+ Undergoing palliative chemo cycle 8 Gem/carbo (started on 18/5/2011) 
+ Presented with 1/7 fever  
+ Cough productive yellowish sputum 4-5/7 
+ Chills but no rigoprs 
+ No SOB/CP 
+ No URTI symptoms 
+ No abdo pain/ diarrhoea 
+ No NV 
+ No headache/ rash/photophobia 
+ . 
+ O/E 
+ Afebrile 
+ BP120/64 
+ HR 62 
+ 98% RA 
+ Non toxic looking 
+ Alert and comfortable 
+ CVS 1+2+0. No raised JVP No peripheral oedema 
+ Chest clear 
+ Nil creps 
+ Abdo SNT 
+ . 
+ Discharged home with symptomatic medication and levofloxacin 500mg OM 5/7 
+ TCU Dr [REDACTED-DOCTOR] old date 
+ Trace sputum culture on TCU 
+ Investigations 
+ Hb8.5 ANC0.9 Na128 K3.9 Urea 2.9 Creat 37 
+ CXR: Surgical clips noted over right MZ. Please correlate clinically. 
+ No active lung lesion seen.  
+ Heart size appears within normal limits 
+ . 
+ Progress: 
+ Treated as per neutropenic sepsis (Low risk) 
+ Blood culture No growth after 2 days 
+ Urine culture No growth 
+ ANC on upward trend 
+ . 
+ 2) C/O right shoulder pain. however full active motion and mild SC tenderness 
+ no signs of infection. resolved on D/C 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1550281012;
+MessageTimestamp : 2011-05-19 11:54:02;
+EventTimestamp : 2011-05-18 17:33:04;
+TxnTimestamp : 2011-05-18 17:33:04;
+AdmitTimestamp : 2005-05-19 08:49:00;
+FreeTextDiagnosisDescription : Report Bellow;
+57/ Chinese lady 
+ SDA for R Wide local excision with sentinel node biopsy 
+ Pt first presented with R breast lump on 11/5/05 
+ MMG and U/S : lesion suspicious of malignancy 
+ Histo : Invasive CA, grade 2/3  
+ Pt underwent procedure below.  
+ Post op, vitals stable - afebrile, BP 110/70, HR 65/min 
+ Heart : S1S2 no murmurs 
+ Lungs : A/E good, clear, no creps 
+ Dressing : clean, dry 
+ Skin : not hyperaemic, no gangrene 
+ No drain 
+ Pt recovered well and was fit for d/c on POD1 
+ TCU Mr [REDACTED-DOCTOR] Clinic 8/6/05 
+ TCU Sister Geraldine Monday 23/5/05 
+ Operative Procedure: Wide local excision of right breast lump with sentinel lymph node biopsy 
+ Operative Findings: Right breast lump at 1 o'clock position, size 15mm  
+ Right breast lump excised with wide clear margin 
+ Sentinel lymph node biopsy performed - sentinel node identified over right axilla and frozen section negative 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1590224913;
+MessageTimestamp : 2011-06-29 17:45:44;
+EventTimestamp : 2011-06-04 13:39:35;
+TxnTimestamp : 2011-06-04 13:39:35;
+AdmitTimestamp : 2009-03-11 00:02:00;
+FreeTextDiagnosisDescription : Report Bellow;
+[REDACTED-NAME] [REDACTED-NAME] [REDACTED-NAME]
+PSN-EEA074E0
+ . 
+ 60YR/Ch/Fem 
+ PMHx: Breast Ca and bone mets s/p wide excision and sentinel LN resection (19/5/05) and RT and hormonal Rx histo of breast tissue: ductal Ca with focal lobular features, ER +/PR+ 
+ Stopped taking tamoxifen 2007, self stopped, defaulted NUH F/U 
+ ADL independent, community ambulant 
+ . 
+ Currently admitted to AH for: 
+ 1. Fall, with L acetabulum #, s/p SLT, neurovascular intact 
+ Noted to have metastatic disease to hip 
+ MRI 9/3/09: diffues and extensive metastatic involvment of all visualised bony structures 
+ Referred to Prof [REDACTED-DOCTOR] to be mx in NUH 
+ Says notes L hip pain 1/12 ago 
+ have L knee pain > 1yr ago, relieved with analgesia 
+ Did not seek medical F/U for her malignancy 
+ Noted blood in stools recently has h/o haemorrhoids acc to pt 
+ . 
+ O/E Alert, 37.4 deg, vitals stable 
+ no mass noted LN axillary ?ve 
+ HS S1S2, chest clear A/E good bilat, abdo SNT 
+ GCS 15 
+ Power grade 5 bilater UL and R LL, able to assess L LL due to pain 
+ . 
+ Ix: TWC 11.21 Hb 11.8 Plt 249 
+ PT/INR/APTT N 
+ Na 135 K 4.2 UI 4.8 C 53 CO2 26 Glu 7  
+ . 
+ Issues this admission: 
+ 1. CA breast w bont mets: 
+ - Radioisotope scan 11/3/09: The findings are in keeping with multiple bony metastases involving the axial skeleton.Vertically aligned foci of increased tracer uptake at the anterior left 5th, 6th and 7th ribs may represent recent trauma. 
+ - CT abdo/pelvis 12/3/09:No evidence of local recurrence in the right breast. There is no thoracic / abdominal adenopathy, pleural effusion or ascites.Multiple bone metastases with pathological fracture of the left acetabulum.Mild prominece of the biliary tree requires clinical correlation to rule out underlying obstruction.  
+ - Referred to Med onco: Imp: New malignancy vs recurrence of Ca breast stage 1, suggested orthopaedic involvement to fix acetabulum # and also take histo, will r/v after operation 
+ - Biopsy results from op: morphology of Ca seen in previous breast excision similar to metastatic Ca seen in bone specimen: origin = breast 
+ - Med onco r/v post-op: started on PO exemestane 25mg OM x 1/12, one dose of IV zometa 4mg 
+ - TCU Dr [REDACTED-DOCTOR] 1-2/52 after DC 
+ - ER/PR and Her2 added to histology, a/w results 
+ 2. Fall w/ L pathological acetabulum #:  
+ - Referred to orthopaedics 13/3/09: transferred care, started prophylactic clexane 
+ > s/p  Pelvic tumor resection and reconstruction 19/3/09 
+ - iOF:Pelvic discontinuity, Type IV involvement of pelvis, Acetabular mets 
+ Post-op: pt alert, vitals stable, NVI 
+ - Check Hb 6.9, given 2 pint PCT, post tx Hb 8.3, another pint PCT given, post tx Hb 8.7 
+ - Put on Thomas' splint 
+ - PWB with WF 
+ - Pt discharged well on 28/3/09 
+ TCU Prof [REDACTED-DOCTOR] in 2/52 time 
+ TCU Dr [REDACTED-DOCTOR] (Med Onco) in 1-2/52 time 
+ See above 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1512617668C;
+MessageTimestamp : 2012-10-18 02:00:12;
+EventTimestamp : 2012-10-17 11:09:44;
+TxnTimestamp : 2012-10-17 11:09:44;
+AdmitTimestamp : 2012-10-09 23:22:00;
+FreeTextDiagnosisDescription : Report Bellow;
+ 
+  64yr old lady  
+  
+  ADL independant   
+  
+ ?   
+  Background:  
+  Metastatic right breast Cancer to bone ER/PR +ve  
+  s/p?wide local excision and sentinel node resection in 2005  
+  s/p?RT  
+  started on tamoxifen x 2yrs and then defaulted f/u  
+  admitted in 2009 with left acetabulum #, found metastatic disease to hip, s/p pelvic tumour resection and reconstruction  
+  recurred with liver mets (CT 20/9/2010)  
+  had 8 cycles of gem/carbo till early 2011  
+  underwent 13 cycles of docetaxel/fulvestrant from 05/11 - 20/09/12, next chemotherapy due on 11/10/12  
+  ?  
+  CT chest and abdo (09/10/12):   
+  1. Interval large right pleural effusion , of relatively high fluid density which may be due to haemmorhagic effusion. This is suspicious for a malignant effusion in the context. Suggest correlation with fluid cytology if clinically warranged.  
+ 2. Stable pulmonary nodules and ground glass change in the left lower lobe. 
+ 3 . Liver hypodensities are less well appreciated today. The liver surface is also more nodular likely pseudocirrhosis from chemotherapy . Small volume ascites 
+ 4. Extensive bony metastatic disease 
+   
+  Currently, found to have right pleural effusion and 4th - 7th ribs fracture on routine CT TAP and admitted  
+  ?  
+  1. exertional dyspnea x 2/52  
+  - decreased effort tolerance of about 2 bus-stops (previously not easily breathless)  
+  - unable to lie flat to sleep, need to assume a right lateral decubitus position  
+  - no paroxysmal noctural dyspnea  
+  - no retrosternal chest discomfort  
+  - no cough, runny nose  
+  - no recent fever/chills/rigors  
+  - no increased fatiguability  
+  - no LOW/LOA  
+  ?  
+  2. right lower chest pain x 2-3/52  
+  - started after injury to the site  
+  - mechanical in nature, not particularly worse on inspiration  
+  - not progreesively worse, pain score decreased from 8/10 to 5/10 over the weeks  
+  ?  
+  3. bilateral lower limbs swelling x 3/7  
+  - no jaundice  
+  - no urinary/bowels symptoms  
+  ?  
+  Afebrile  
+  BP 140/88  
+  PR 87 bpm  
+  RR 26  
+  SpO2 97% on RA  
+  ?  
+  O/E:   
+  comfortable and alert at rest  
+  not pale/jaundice  
+  H:S1S2, JVP not raised  
+  L: No tracheal deviation, decreased air-entry, stony dull on percussion, decreased vocal resonance over the right base  
+  A: Soft NT  
+  calves supple  
+  mild pitting edema to the knees bilaterally  
+  PR: no malena/fresh blood  
+  ?  
+  Issues and progression:  
+  1. Traumatic hemothorax associated with ribs fracture on the background of metastatic breast carcinoma  
+  - referred to CTVS and advised for CT-guided drainage of effusion via chest tube insertion  
+  - chest tube inserted with no complications  
+  - Hb on admission: 8.6, slightly reduced from baseline, likely due to hemodilution secondary to hydration  
+  - LFT was unremarkable  
+  - started analgesia, pain well-tolerated throughout stay  
+  - drain in-situ for 5 days, draining well  
+  - serial CXRs showed improvement of the pleural effusion  
+  - hemoglobin was subsequently stable throughout admission (10 - 11.2) with no coagulopathy  
+  - vital signs remained stable  
+  - culture of effusion was negative, cytology did not reveal any malignant cells.  
+  - pedal edema resolved spontaneously?  
+  - chest drain removed: no complications post removal   
+  ?  
+  Patient was discharged with her condition improved.?  
+  ?  
+  Plan:  
+  TCU De Zee on Thursay 25/10/12 with FBC, RP1, LFTs OA   
+  To book chemo slot for docetaxel after TCU   
+  To start dexamethasone on wednesday 24/10/12  
+  ? 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1513168165E;
+MessageTimestamp : 2013-02-10 01:46:05;
+EventTimestamp : 2013-02-09 10:36:38;
+TxnTimestamp : 2013-02-09 10:36:38;
+AdmitTimestamp : 2013-02-05 00:19:00;
+FreeTextDiagnosisDescription : Report Bellow;
+ 
+ 64yr old lady 
+ No allergies known 
+ ADL independent, home ambulant 
+ . 
+ PMx 
+ 1) Metastatic right breast Cancer to bone ER/PR +ve 
+ Rx wide local excision and sentinel node resection in 2005 
+ Subsequently received RT 
+ Took Tamoxifen for 2 yrs, then defaulted f/u 
+ . 
+ Re-presented 2009 with L acetabulum # 
+ Found metastatic disease to hip, s/p pelvic tumour resection and reconstruction  
+ . 
+ Recurred with liver mets (CT 20/9/2010)  
+ Had 8 cycles of gem/carbo till early 2011  
+ Subsequently underwent 13 cycles of docetaxel/fulvestrant  
+ Now on Docetaxel, last given 21 Dec'12  
+ . 
+ Prev pleural effusion Oct'12 - drained 
+ No malignant cells on cytology 
+ Last adm for traumatic haemothorax (incidental multiple rib #s on follow-up CT) 
+ Rx CT-guided drainage with good result 
+ -ve cultures, no malignant cells seen then 
+ . 
+ HPC 
+ 1) Exertional dyspnoea 
+ 2-3/7 hx 
+ no chest pain, no infective symptoms 
+ no associated diaphoresis 
+ no hemoptysis 
+ progressive bilateral lower limb swelling with left leg becoming more erythematous 
+ no open wounds 
+ no draining sinus 
+ slight pain on the left lower lims when walking 
+ . 
+ In A&E, CXR showed massive R effusion  
+ Chest tube inserted in A&E - Seldinger technique. 1.5L haemoserous fluid drained 
+ . 
+ O/e 
+ Alert, non-toxic,. Comfortable at rest, speaking full sentances 
+ T 36.5, BP 105/60, P 80, sats 100% 2L O2 
+ HS I+II+0 
+ Chest decreased AE R mid/lower zones  
+  
+ Chest tube in situ, oscillating. Serous fluid 
+ Abdo soft, NT 
+ Calves supple, no oedema  
+  
+ . 
+ On ward, 
+ 1) Recurrent pleural effusions 
+ Total drainage > 5L  
+  
+ Tolerated well  
+  
+ Removed 9 Feb, tip intact  
+  
+ Good symptomatic relief; did not require O2  
+  
+ Repeat CXR: marked improvement of effusion  
+  
+ Fluid cytology: no malignant cells  
+  
+ Noted fluid haemoserous on day of discharge - a/t staff, had had some trauma to the tube just before.   
+  
+ Pt saturating well, not in pain, no fever  
+  
+ Tube removed as planned 9 Feb - no immediate complications; no bleeding or leakage  
+  
+ Fluid sent for Ix after tube removal: to trace as outpatient  
+  
+ .  
+  
+ 2) Breast ca with new mets  
+  
+ Noted raised liver enzymes  
+  
+ CT TAP done?7 Feb to assess disease:  There is interval appearance of possible liver metastasis. Non specific ground glass opacification of the lungs is seen. This is likely to be infective. There is no septal thickening that would have suggested lymphangitis otherwise.  
+  
+  Pt and family informed of scan results  
+  
+ For outpatient TCU to discuss further tx options 
+  
+ TCU Dr [REDACTED-DOCTOR] [REDACTED-ADDRESS] in at 10 am 
+ FBC, RP, LFTs OA 
+ Trace fluid Ix.To discuss further treatment options 
+ 
+\N
+
+********** End of Report **********
+********** Start of Report **********
+CaseIdentificationNumber : 1513180322Z;
+MessageTimestamp : 2013-02-20 01:45:10;
+EventTimestamp : 2013-02-19 08:43:23;
+TxnTimestamp : 2013-02-19 08:43:23;
+AdmitTimestamp : 2013-02-12 23:42:00;
+FreeTextDiagnosisDescription : Report Bellow;
+ 
+ 64yr old lady 
+ No allergies known 
+ ADL independent, home ambulant 
+ . 
+ PMx 
+ 1) Metastatic right breast Cancer to bone ER/PR +ve 
+ Rx wide local excision and sentinel node resection in 2005 
+ Subsequently received RT 
+ Took Tamoxifen for 2 yrs, then defaulted f/u 
+ . 
+ Re-presented 2009 with L acetabulum # 
+ Found metastatic disease to hip, s/p pelvic tumour resection and reconstruction  
+ . 
+ Recurred with liver mets (CT 20/9/2010)  
+ Had 8 cycles of gem/carbo till early 2011  
+ Subsequently underwent 13 cycles of docetaxel/fulvestrant  
+ Now on Docetaxel, last given 21 Dec'12  
+ . 
+ 2) Traumatic haemothorax (incidental multiple rib #s on follow-up CT) 
+ Rx CT-guided drainage with good result 
+ -ve cultures, no malignant cells seen then 
+ . 
+ Just adm 5-9 Feb'13 
+ a. Symptomatic R pleural effusion, drained 
+ Cytology -ve for malignancy 
+ b. transaminitis 
+ CT showed new liver mets 
+ Chest drain removed, discharged 9 Feb to go home for CNY 
+ . 
+ HPC 
+ 1) Exertional dyspnoea 
+ 1-2/7 hx 
+ A/w decreased effort tolerance  
+ Also bilat LL swelling, but L > R 
+ No fever 
+ Mild discomfort over ex-drain site 
+ Minimal discharge 
+ . 
+ O/e 
+ Alert, non-toxic but tachypnoeic. Speaking in short phrases 
+ T 36.1, BP 96/67, P 90, sats 97% OA 
+ HS I+II+0 
+ Chest decreased AE R hemithorax  
+ Ex drain site mild erythema; no pus or induration 
+ Abdo soft, NT. No masses felt. BS present 
+ Calves supple, pitting oedema to shin on R, to knee on L 
+ . 
+ On ward, 
+ 1) Recurrent pleural effusions  
+  
+ Noted results from recent fluid Ix: exidative; no cultures +ve; AFB -ve. Cytology (had sent 2 samples) no malignant cells  
+  
+ Ex drain site discharging haemoserous fluid on ward - urostomy bag connected, allowed drainage 
+ Hypotensive on ward 
+ Lactate normal; not acidotic on ABG 
+ Cx hyponatraemia - put on IV drip 
+ Decision made for conservative mx 
+ Started on oral Morphine with good relief 
+ . 
+ 2) ? sepsis 
+ Noted raised WCC 
+ Covered with Ceftriaxone and Metronidazole  
+ Cultures -ve, fever settled  
+  
+ Abx stopped 16 Feb - completed 5 days 
+ . 
+ 3) Met breast ca 
+ Seen by palliative medicine 
+ Worsening aminases with jaundice 
+ Pt clinically deteriorated since last discharge 
+ Discussed with family - currently not fit for chemo 
+ Agreed for BSC 
+ DNR established  
+  
+ .  
+  
+ Further deterioration throughout admission  
+  
+ Comfort care continued  
+  
+ Asystolic on 19 Feb 2013, 0755 hrs  
+  
+ CCOD Metastatic breast cancer  
+  
+ Condolences offered to family 
+ 
+\N
+
+********** End of Report **********

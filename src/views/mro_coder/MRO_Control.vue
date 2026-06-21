@@ -43,17 +43,29 @@ const uploadFiles = async () => {
     });
 
     var jsonobj = await response.json();
-    // Safely check for server-side validation error dictionaries
-    if (jsonobj != null && 'detail' in jsonobj) {
-      console.log("Validation details:", jsonobj['detail']);
-      // Map out text representation of error message into UI state
-      reportResult.value = JSON.stringify(jsonobj['detail'], null, 2);
+    console.log("jsonobj return from BEDROCK...")
+    console.log(jsonobj)
+  
+    if (jsonobj && typeof jsonobj === 'object') {
+
+      if ('detail' in jsonobj) {
+        console.log("Validation details:", jsonobj['detail']);
+        reportResult.value = JSON.stringify(jsonobj['detail'], null, 2);
+
+      } else {
+        let outputText = jsonobj.output || jsonobj.result || JSON.stringify(jsonobj);
+        if (typeof outputText === 'string') {
+          outputText = outputText.replaceAll("\\n", "\n");
+        }
+        reportResult.value = outputText;
+      }
+      
     } else {
-      reportResult.value = "Network error E53";
+      reportResult.value = "Network error E61: Received an empty or invalid response.";
     }
   } catch (error) {
-    reportResult.value = "Network error E56:\n" + error.toString();
-    console.error("E57: Network error during processing sequence:", error);
+    reportResult.value = "Network error E64: " + error.toString();
+    console.error("Network error during processing sequence:", error);
   } finally {
     isLoading.value = false;
   }
@@ -138,11 +150,12 @@ const downloadCSV = () => {
             </CCardText>
           </template>
 
-          <!-- Show real content once result is available -->
+          <!-- Show real content once result is available
           <template v-else-if="reportResult">
             <CCardTitle>AI:</CCardTitle>
             <CCardText>{{ reportResult }}</CCardText>
           </template>
+          -->
 
           <!-- Nothing shown before upload starts -->
         </CCardBody>

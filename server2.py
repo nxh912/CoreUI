@@ -388,53 +388,67 @@ def clean_response(text):
     return text
 
 def bedrock_converse(instruction, text, temperature):
-    # CRITICAL ENVIRONMENT CLEANUP: Pop out conflicting bearer keys before client initiation
-    os.environ.pop("AWS_BEARER_TOKEN_BEDROCK", None)
+  # CRITICAL ENVIRONMENT CLEANUP: Pop out conflicting bearer keys before client initiation
+  os.environ.pop("AWS_BEARER_TOKEN_BEDROCK", None)
 
-    bedrock_client = boto3.client(
-        service_name="bedrock-runtime",
-        region_name=ENV_REGION
+  bedrock_client = boto3.client(
+      service_name="bedrock-runtime",
+      region_name=ENV_REGION
+  )
+
+  print(f"### E399: Converse api, region : '{ENV_REGION}'")
+  prompt = get_prompt(instruction, text)
+
+  try:
+    response = bedrock_client.converse(
+        modelId=MODEL_ID,
+        messages=prompt,
+        inferenceConfig={
+            "maxTokens": MAX_TOKENS,
+            "temperature": temperature,
+        }
     )
+    
+    output_text = response["output"]["message"]["content"][0]["text"]
 
-    print(f"### E399: Converse api, region : {ENV_REGION}")
-    prompt = get_prompt(instruction, text)
+    return clean_response(output_text)
+  except Exception as e:
+    print(f"### E418: Error invoking model: {e},\nBedrock Error: {str(e)}")
+    #raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
+    return f"Error E420 invoking model: {e},\nBedrock Error: {str(e)}"
 
-    try:
-        #print(f"### converse api... PROMPT:\n{prompt}\n")
-        response = bedrock_client.converse(
-            modelId=MODEL_ID,
-            messages=prompt,
-            inferenceConfig={
-                "maxTokens": MAX_TOKENS,
-                "temperature": temperature,
-            }
-        )
-        
-        output_text = response["output"]["message"]["content"][0]["text"]
-        #print(f"### output_text:\n{output_text}\n")
-
-        return {"result": clean_response(output_text)}
-    except Exception as e:
-        print(f"### E418: Error invoking model: {e},\nBedrock Error: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
 
 @app.post("/api/v1/mro_data", response_model=None)
 async def generate_ai_response(data: PromptRequest):
-    print(f"PROMPT : \n{mro_prompt[-500]}...\n")
-    print(f"TEXT : \n{data.context[-500]}...\n")
-    try:
-        str = bedrock_converse(
-            instruction=mro_prompt, 
-            text=data.context, 
-            temperature=data.temperature
-        )
-        str = str.replace('\\n', '\n').replace('\\t', '\t')
+  from fastapi.responses import JSONResponse
+  from fastapi.encoders import jsonable_encoder
 
-        print(f"bedrock_converse API : \n{str}")
+  print(f"==========\nPROMPT : \n{mro_prompt[:500]}\n.\n.\n.")
+  print(f"==========\nTEXT : \n{data.context[:500]}\n.\n.\n.")
+  try:
+    s = bedrock_converse(
+      instruction=mro_prompt, 
+      text=data.context, 
+      temperature=data.temperature
+    )
+    s = s.replace('\\n', '\n').replace('\\t', '\t')
 
-        return str
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    if s.upper().find('ERROR') >= 0:
+      return {
+        "status": "error",
+        "message": s
+      }
+    else:
+      s = JSONResponse(s)
+      print(f"BEDROCK returned (json):\n{s}")
+      return s
+
+  except Exception as e:
+    print(f"error 441, {e}")
+    return {
+      "status": "error",
+      "message": str(e)
+    }
         
 '''
 async def generate_ai_response(

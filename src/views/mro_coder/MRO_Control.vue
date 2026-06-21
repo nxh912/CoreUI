@@ -10,34 +10,55 @@ const handleFileChange = (event) => {
 };
 
 const uploadFiles = async () => {
-  if (!files.value) return;
+  if (!files.value || files.value.length === 0) return;
 
-  const formData = new FormData();
-  for (let i = 0; i < files.value.length; i++) {
-    formData.append('files', files.value[i]);
-  }
-
-  isLoading.value = true;       // show placeholders while waiting
-  reportResult.value = null;    // clear any previous result
+  isLoading.value = true;
+  reportResult.value = null;
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/v1/mro_data", {
-      method: 'POST',
-      body: formData,
+    const file = files.value[0];
+    
+    // Read the text lines from the uploaded report file inside the browser
+    const fileContent = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = (e) => reject(e);
+      reader.readAsText(file);
     });
 
-    var jsonobj = await response.json();   // triggers UI update
+    // Format a compliant JSON request payload that matches server2.py's structural definition
+    const jsonPayload = {
+      instruction: "Review the clinical scenario and prioritize calculations based on instructions.",
+      context: fileContent, // Pass the extracted text content of the report verbatim
+      temperature: 0.7
+    };
 
-    if ('detail' in jsonobj) {
-      jsonobj = jsonobj['detail'];
-      console.log( jsonobj );
+    // Fire the request with the native application/json Content-Type header
+    const response = await fetch("http://127.0.0.1:8000/api/v1/mro_data", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(jsonPayload),
+    });
+
+    var jsonobj = await response.json();
+    // Safely check for server-side validation error dictionaries
+    if (jsonobj != null && 'detail' in jsonobj) {
+      console.log("Validation details:", jsonobj['detail']);
+      // Map out text representation of error message into UI state
+      reportResult.value = JSON.stringify(jsonobj['detail'], null, 2);
+    } else {
+      reportResult.value = "Network error E53";
     }
   } catch (error) {
-    console.error(error);
+    reportResult.value = "Network error E56:\n" + error.toString();
+    console.error("E57: Network error during processing sequence:", error);
   } finally {
-    isLoading.value = false;    // always stop loading state
+    isLoading.value = false;
   }
 };
+
 
 // It is much easier to manage and export data if it lives in Vue state rather than parsing raw HTML
 const tableData = ref([

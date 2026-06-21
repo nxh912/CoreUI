@@ -25,10 +25,10 @@ app.add_middleware(
 )
 
 mro_prompt='''
-    Medical Coding Instructions
-You are a medical coder in a hospital.
+    Medical Coding Instructions:
+      You are a medical coder in a hospital.
     Review the clinical scenario and patient case with the information provided. Prioritize information in this order: discharge summary, consultation notes, physician notes, and other clinical notes.
-    
+
     Important
     Guidelines
     1. Do not infer any diagnosis on your own
@@ -297,56 +297,78 @@ You are a medical coder in a hospital.
       7. Indication if deceased or transferred"
 
     Present the output in JSON format, using headers:
-    [(A) Principal Diagnosis':
-        [1. Principal Diagnosis,
-         2. Principal diagnosis/problem,
-         3. Status:
-           [a. New diagnosis,
-            b. Dates cited and source,
-            c. Case-specific details]
-         4. Citation,
-         5. Investigation,
-         6. Careplan:
-         ['a. Related current clinical care',
-          'b. Clinical management details']
-        ],
-      (B) Secondary Diagnoses':
-        [1. Secondary Diagnosis,
-         2. Status:
-           [a. New diagnosis,
-            b. Dates cited and source,
-            c. Case-specific infection details],
-         3. Citation:
-           [a. Quote,
-            b. Primary source,
-            c. Associated lab results,
-            d. New or existing,
-            e. Complications,
-            f. Inconclusive/versus,
-            g.  Resolved conditions],
-         4. Investigation:
-           [a. Detailed treatments,
-            b. Investigation results]],
-         5. Careplan:
-           [a. Related care]],
-      (C) Diabetes Mellitus Documentation',
-      (D) Bedside & Invasive Procedures',
-      (E) Medication Changes During Admission',
-      (F) From Allied Health and Nursing Assessments':
-        ['1. Speech therapist',
-         '2. Dietitian',
-         '3. Podiatrist',
-         '4. LDAs/wound']
-     (G) Laboratory & Renal Panel Findings',
-     (H) Other Diagnoses (Noted & Treated on Ward)',
-     (I) Important Status Documentation',
-     (J) Additional Sources & Ancillary Findings',
-     (K) Summary of Admission Events',
-     (L) Demographic Data',
-     (M) Past Medical History',
-     (N) Consultation & Interdisciplinary Notes',
-     (O) Cases with Death'
-    ]
+    {
+    "(A) Principal Diagnosis": [
+        "1. Principal Diagnosis",
+        "2. Principal diagnosis/problem",
+        {
+        "3. Status": [
+            "a. New diagnosis",
+            "b. Dates cited and source",
+            "c. Case-specific details"
+        ]
+        },
+        "4. Citation",
+        "5. Investigation",
+        {
+        "6. Careplan": [
+            "a. Related current clinical care",
+            "b. Clinical management details"
+        ]
+        }
+    ],
+    "(B) Secondary Diagnoses": [
+        "1. Secondary Diagnosis",
+        {
+        "2. Status": [
+            "a. New diagnosis",
+            "b. Dates cited and source",
+            "c. Case-specific infection details"
+        ]
+        },
+        {
+        "3. Citation": [
+            "a. Quote",
+            "b. Primary source",
+            "c. Associated lab results",
+            "d. New or existing",
+            "e. Complications",
+            "f. Inconclusive/versus",
+            "g. Resolved conditions"
+        ]
+        },
+        {
+        "4. Investigation": [
+            "a. Detailed treatments",
+            "b. Investigation results"
+        ]
+        },
+        {
+        "5. Careplan": [
+            "a. Related care"
+        ]
+        }
+    ],
+    "(C) Diabetes Mellitus Documentation": [],
+    "(D) Bedside & Invasive Procedures": [],
+    "(E) Medication Changes During Admission": [],
+    "(F) From Allied Health and Nursing Assessments": [
+        "1. Speech therapist",
+        "2. Dietitian",
+        "3. Podiatrist",
+        "4. LDAs/wound"
+    ],
+    "(G) Laboratory & Renal Panel Findings": [],
+    "(H) Other Diagnoses (Noted & Treated on Ward)": [],
+    "(I) Important Status Documentation": [],
+    "(J) Additional Sources & Ancillary Findings": [],
+    "(K) Summary of Admission Events": [],
+    "(L) Demographic Data": [],
+    "(M) Past Medical History": [],
+    "(N) Consultation & Interdisciplinary Notes": [],
+    "(O) Cases with Death": []
+    }
+
 ]'''
 
 def get_prompt(instruction, text):
@@ -374,7 +396,7 @@ def bedrock_converse(instruction, text, temperature):
         region_name=ENV_REGION
     )
 
-    #print(f"### Converse api, region : {ENV_REGION}")
+    print(f"### E399: Converse api, region : {ENV_REGION}")
     prompt = get_prompt(instruction, text)
 
     try:
@@ -393,13 +415,13 @@ def bedrock_converse(instruction, text, temperature):
 
         return {"result": clean_response(output_text)}
     except Exception as e:
-        print(f"Error invoking model: {e}")
+        print(f"### E418: Error invoking model: {e},\nBedrock Error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
 
 @app.post("/api/v1/mro_data", response_model=None)
 async def generate_ai_response(data: PromptRequest):
-    print(f"PROMPT : \n{mro_prompt}")
-    print(f"TEXT : \n{data.context}")
+    print(f"PROMPT : \n{mro_prompt[-500]}...\n")
+    print(f"TEXT : \n{data.context[-500]}...\n")
     try:
         str = bedrock_converse(
             instruction=mro_prompt, 
@@ -413,8 +435,46 @@ async def generate_ai_response(data: PromptRequest):
         return str
     except Exception as e:
         print(f"An error occurred: {e}")
+        
+'''
+async def generate_ai_response(
+    files: List[UploadFile] = File(...), 
+    aws_client=Depends(get_aws_client)
+):
+    try:
+        # 1. Ensure at least one file was uploaded
+        if not files:
+            raise HTTPException(status_code=400, detail="No files provided")
+            
+        # 2. Read the binary content of the first file and decode it into plain text
+        first_file = files[0]
+        file_bytes = await first_file.read()
+        extracted_text = file_bytes.decode("utf-8")
+        
+        # 3. Formulate your prompt instructions for the AI
+        instruction_prompt = (
+          "You are a medical coder in a hospital. Review the clinical scenario "
+          "and extract the principal and secondary diagnoses based on the guidelines."
+        )
+        
+        # 4. Forward the text cleanly to your bedrock function matching its signature
+        ai_output = bedrock_converse(
+            instruction=instruction_prompt,
+            text=extracted_text,
+            temperature=0.7
+        )
+        
+        # 5. Return the result back to your Vue application
+        return {"output": ai_output}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+'''
 
- 
+'''
+
+'''
+
 if __name__ == "__main__":
     import uvicorn
     filename = os.path.basename(__file__)

@@ -50,6 +50,7 @@ mro_prompt='''
     2. Dates cited and source of diagnosis
     3. [Add any case-specific details as required below for injury, infection, cancer, etc.]
 
+<<<<<<< HEAD
     Citation:
     1. Quote directly from the paragraph of supporting information from clinical notes including source documentation, date, and tim.2. Primary source shoul. be discharge summary, if not present cite progress notes
     3. Include associated lab results/information cited in the discharge summary
@@ -367,6 +368,25 @@ mro_prompt='''
     "(M) Past Medical History": [],
     "(N) Consultation & Interdisciplinary Notes": [],
     "(O) Cases with Death": []
+=======
+@app.post("/api/v1/generate")
+async def generate_ai_response(request: PromptRequest, aws_client=Depends(get_aws_client)):
+    # Standard serverless model ID (e.g., Claude 3.5 Sonnet or Claude 3 Sonnet)
+    model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+    #print("RESTful : /api/v1/generate")
+    
+    # Standardized system/user message structure for the Bedrock Converse API
+    messages = [
+        {
+            "role": "user",
+            "content": [{"text": request.prompt}]
+        }
+    ]
+    
+    inference_config = {
+        "maxTokens": request.max_tokens,
+        "temperature": request.temperature
+>>>>>>> 4de46fb ( nodejs version of restful server)
     }
 
 ]'''
@@ -456,6 +476,7 @@ async def generate_ai_response(
     aws_client=Depends(get_aws_client)
 ):
     try:
+<<<<<<< HEAD
         # 1. Ensure at least one file was uploaded
         if not files:
             raise HTTPException(status_code=400, detail="No files provided")
@@ -488,6 +509,30 @@ async def generate_ai_response(
 '''
 
 '''
+=======
+        # Using the recommended Converse API operation
+        response = aws_client.converse(
+            modelId=model_id,
+            messages=messages,
+            inferenceConfig=inference_config
+        )
+        
+        # Extract response text cleanly without manual JSON string parsing
+        output_text = response["output"]["message"]["content"][0]["text"]
+        
+        return {
+            "status": "success",
+            "output": output_text
+        }
+        
+    except (BotoCoreError, ClientError) as aws_err:
+        raise HTTPException(status_code=502, detail=f"AWS Bedrock invocation failed: {str(aws_err)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+def import_json_string(data):
+    import json
+    return json.dumps(data)
+>>>>>>> 4de46fb ( nodejs version of restful server)
 
 if __name__ == "__main__":
     import uvicorn

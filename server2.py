@@ -1,6 +1,4 @@
-import os
-import json
-import boto3
+import os, re, sys, json, boto3
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -16,13 +14,20 @@ class PromptRequest(BaseModel):
     max_tokens: int = 500
 
 app = FastAPI(title="Cortex AI Bridge Engine")
+origins = [
+    "http://localhost:3000",      # Your Vue local development server
+    "http://127.0.0.1:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=origins,            # Allows requests from your Vue app
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],              # Allows all HTTP methods (POST, GET, etc.)
+    allow_headers=["*"],              # Allows all request headers
 )
+
+mro_prompt0="uploading the medical reports of cases of CaseIdentificationNumber's. \n split each case into JSON format. OUTPUT only the resulting JSON object."
 
 mro_prompt='''
     Medical Coding Instructions:
@@ -50,7 +55,6 @@ mro_prompt='''
     2. Dates cited and source of diagnosis
     3. [Add any case-specific details as required below for injury, infection, cancer, etc.]
 
-<<<<<<< HEAD
     Citation:
     1. Quote directly from the paragraph of supporting information from clinical notes including source documentation, date, and tim.2. Primary source shoul. be discharge summary, if not present cite progress notes
     3. Include associated lab results/information cited in the discharge summary
@@ -368,28 +372,11 @@ mro_prompt='''
     "(M) Past Medical History": [],
     "(N) Consultation & Interdisciplinary Notes": [],
     "(O) Cases with Death": []
-=======
-@app.post("/api/v1/generate")
-async def generate_ai_response(request: PromptRequest, aws_client=Depends(get_aws_client)):
-    # Standard serverless model ID (e.g., Claude 3.5 Sonnet or Claude 3 Sonnet)
-    model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0"
-    #print("RESTful : /api/v1/generate")
-    
-    # Standardized system/user message structure for the Bedrock Converse API
-    messages = [
-        {
-            "role": "user",
-            "content": [{"text": request.prompt}]
-        }
-    ]
-    
-    inference_config = {
-        "maxTokens": request.max_tokens,
-        "temperature": request.temperature
->>>>>>> 4de46fb ( nodejs version of restful server)
     }
-
 ]'''
+
+
+
 
 def get_prompt(instruction, text):
     return [
@@ -421,62 +408,139 @@ def bedrock_converse(instruction, text, temperature):
 
   try:
     response = bedrock_client.converse(
-        modelId=MODEL_ID,
-        messages=prompt,
-        inferenceConfig={
-            "maxTokens": MAX_TOKENS,
-            "temperature": temperature,
-        }
+      modelId=MODEL_ID,
+      messages=prompt,
+      inferenceConfig={
+          "maxTokens": 120000,
+          "temperature": temperature,
+      }
     )
     
     output_text = response["output"]["message"]["content"][0]["text"]
-
+    print("response:\n", response)
     return clean_response(output_text)
   except Exception as e:
-    print(f"### E418: Error invoking model: {e},\nBedrock Error: {str(e)}")
+    print(f"\n\n\n\n\n### E417: Error invoking model: {e},\nBedrock Error: {str(e)}\n\n\n\n\n")
     #raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
-    return f"Error E420 invoking model: {e},\nBedrock Error: {str(e)}"
+    return clean_response(f"ERROR_417: Bedrock Error: {str(e)}")
 
+def split_report(content):
+  report_pattern = re.compile(r'Start of Report(.*?)End of Report', re.DOTALL)
+  reports = report_pattern.findall(content)
+  reports_dict = {}
+  id_pattern = re.compile(r'CaseIdentificationNumber\s*[:=]?\s*([A-Za-z0-9_-]+)')
+  
+  for idx, report_text in enumerate(reports, start=1):
+    clean_report_text = report_text.strip()
+    
+    # Search for the CaseIdentificationNumber in the current report block
+    match = id_pattern.search(clean_report_text)
+    if match:
+      case_id = match.group(1)
+    else:
+      # Fallback identifier if a report happens to miss its CaseIdentificationNumber
+      case_id = f"UNKNOWN_CASE_{idx}"
+    
+    # Store the report text mapped to its CaseIdentificationNumber
+    # If you want to include the 'Start' and 'End' tags in the JSON value, you can uncomment below:
+    # reports_dict[case_id] = f"Start of Report\n{clean_report_text}\nEnd of Report"
+    reports_dict[case_id] = clean_report_text
 
-@app.post("/api/v1/mro_data", response_model=None)
-async def generate_ai_response(data: PromptRequest):
-  from fastapi.responses import JSONResponse
-  from fastapi.encoders import jsonable_encoder
+  for id in reports_dict:
+    print(f"\n\n\n======ID_REPORT : {id} length:{ len(reports_dict[id])}")
+  return reports_dict
 
-  print(f"==========\nPROMPT : \n{mro_prompt[:500]}\n.\n.\n.")
-  print(f"==========\nTEXT : \n{data.context[:500]}\n.\n.\n.")
+def ai_case_report(caseid, case_report, temperature):
+  print(f"\n--- ai_case_report( {caseid}, [case_report] )")
+  print(f"{caseid} caseid : {caseid}")
+  print(f"{caseid} case_report : {case_report}\n\n(END)")
+ 
   try:
-    s = bedrock_converse(
-      instruction=mro_prompt, 
-      text=data.context, 
-      temperature=data.temperature
-    )
-    s = s.replace('\\n', '\n').replace('\\t', '\t')
+    print(f"line 459: bedrock_converse( \"{mro_prompt[:50]}...\", \"{case_report[:99]}..\", temperature={temperature})")
 
+    inference_config = {
+      "maxTokens": 4096,
+      "temperature": temperature
+    }
+
+    s = bedrock_converse(
+      instruction= mro_prompt, 
+      text= case_report, 
+      temperature= temperature
+    )
+
+    #print(f"LINE 462: s : \"{s}\"")
+
+    s = s.replace('\\n', '\n').replace('\\t', '\t')
     if s.upper().find('ERROR') >= 0:
       return {
         "status": "error",
         "message": s
       }
     else:
-      s = JSONResponse(s)
-      print(f"BEDROCK returned (json):\n{s}")
-      return s
+      print(f"line 471: s = '''{s}'''")
+      casejson = json.loads(s)
+      #cases_json[caseid] = casejson
+      return casejson
+
+    print(f"LINE 474: BEDROCK returned ({caseid}):\n{case_json}\nJSON:\n{s}")
 
   except Exception as e:
-    print(f"error 441, {e}")
+    print(f"error 480, {e}")
     return {
       "status": "error",
       "message": str(e)
     }
-        
+  return casejson
+
+@app.post("/api/v1/mro_data", response_model=None)
+async def generate_ai_response(data: PromptRequest):
+  from fastapi.responses import JSONResponse
+  from fastapi.encoders import jsonable_encoder
+  temperature = data.temperature
+
+  cases_json={}
+  case_reports = split_report(data.context)
+
+  #for caseid in sorted(case_reports.keys()):
+    #print(f"### line 454: case {caseid}[:200]...")
+    #print(f"{case_reports[caseid][:100]}...\n\n")
+
+  for caseid in case_reports:
+    print(f"\n### line 499: case {caseid}...")
+    print(f"### line 500: case {caseid} report:\n{case_reports[caseid]}[:200]\n...\n...")
+    case_report= case_reports[caseid]
+
+    s = ai_case_report(caseid, case_report, temperature)
+    if s:
+      if 'status' in s and s['status']=='error':
+        print(f"SKIPPING case: {caseid}")
+        continue
+
+      try:
+        print(f"LINE_504  s : {s}")
+        casejson = json.loads(s)
+        cases_json[caseid] = casejson
+
+        print(f"------------->\n>>> case: {caseid}")
+        print(f">>> case_report: {case_report} TEXT : \n{data.context[:50]}...")
+        print("<<<\n\n")
+        #print(f"RUNNING PROMPTS for cases: ", ".join( {case_reports.keys()} )")
+      except Exception as e:
+        raise Exception( str(e) )
+
+    else:
+      print(f"ERR_505 : CASE: {caseid}")
+  
+  print("END WITH ALL CASES: ")
+  return cases_json
+
 '''
 async def generate_ai_response(
     files: List[UploadFile] = File(...), 
     aws_client=Depends(get_aws_client)
 ):
     try:
-<<<<<<< HEAD
         # 1. Ensure at least one file was uploaded
         if not files:
             raise HTTPException(status_code=400, detail="No files provided")
@@ -506,34 +570,6 @@ async def generate_ai_response(
         raise HTTPException(status_code=500, detail=str(e))
 '''
 
-'''
-
-'''
-=======
-        # Using the recommended Converse API operation
-        response = aws_client.converse(
-            modelId=model_id,
-            messages=messages,
-            inferenceConfig=inference_config
-        )
-        
-        # Extract response text cleanly without manual JSON string parsing
-        output_text = response["output"]["message"]["content"][0]["text"]
-        
-        return {
-            "status": "success",
-            "output": output_text
-        }
-        
-    except (BotoCoreError, ClientError) as aws_err:
-        raise HTTPException(status_code=502, detail=f"AWS Bedrock invocation failed: {str(aws_err)}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
-def import_json_string(data):
-    import json
-    return json.dumps(data)
->>>>>>> 4de46fb ( nodejs version of restful server)
-
 if __name__ == "__main__":
     import uvicorn
     filename = os.path.basename(__file__)
@@ -544,5 +580,5 @@ if __name__ == "__main__":
         "instruction": "you are super coder in health care",
         "context": "list all specialist in medicine",
         "temperature": 0.7
-    }'
+    }
     '''

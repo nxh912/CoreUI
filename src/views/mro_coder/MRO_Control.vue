@@ -51,7 +51,6 @@ const uploadFiles = async () => {
       if ('detail' in jsonobj) {
         console.log("Validation details:", jsonobj['detail']);
         reportResult.value = JSON.stringify(jsonobj['detail'], null, 2);
-
       } else {
         let outputText = jsonobj.output || jsonobj.result || JSON.stringify(jsonobj);
         if (typeof outputText === 'string') {

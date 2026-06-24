@@ -1,4 +1,4 @@
-import os, re, sys, json, boto3
+import os, re, sys, json, asyncio, boto3
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -450,13 +450,63 @@ def split_report(content):
     print(f"\n\n\n======ID_REPORT : {id} length:{ len(reports_dict[id])}")
   return reports_dict
 
+async def ai_case_report_async(caseid, case_report, temperature):
+  """Wrap your existing ai_case_report in an async executor so it doesn't block"""
+  loop = asyncio.get_event_loop()
+  # Run the blocking boto3 call in a thread pool
+  result = await loop.run_in_executor(
+      None,  # uses default ThreadPoolExecutor
+      lambda: ai_case_report(caseid, case_report, temperature)
+  )
+  return caseid, result
+
+async def process_all_cases(case_reports, temperature):
+  # Create all tasks at once
+  tasks = [
+    ai_case_report_async(caseid, case_report, temperature)
+    for caseid, case_report in case_reports.items()
+  ]
+
+  print(f"TASKS :\n{ tasks }")
+
+  # Run all tasks concurrently, wait for all to finish
+  results = await asyncio.gather(*tasks, return_exceptions=True)
+
+  cases_json = asyncio.run(process_all_cases(case_reports, temperature))
+
+  '''
+  cases_json = {}
+  for caseid, s in results:
+      if isinstance(s, Exception):
+          print(f"SKIPPING case {caseid} due to exception: {s}")
+          continue
+
+      if not s:
+          print(f"SKIPPING case {caseid}: empty response")
+          continue
+
+      if isinstance(s, dict) and s.get('status') == 'error':
+          print(f"SKIPPING case {caseid}: error status")
+          continue
+
+      try:
+          casejson = json.loads(s)
+          cases_json[caseid] = casejson
+          print(f"------------->\n>>> case: {caseid}")
+          print(f">>> case_report snippet: {case_report[:50]}...")
+          print("<<<\n\n")
+      except Exception as e:
+          print(f"SKIPPING case {caseid}: JSON parse error: {e}")
+  '''
+  return cases_json
+
 def ai_case_report(caseid, case_report, temperature):
-  print(f"\n--- ai_case_report( {caseid}, [case_report] )")
+  print(f"\nLINE 454 --- ai_case_report( {caseid}, [..case_report..] )")
   print(f"{caseid} caseid : {caseid}")
   print(f"{caseid} case_report : {case_report}\n\n(END)")
  
   try:
-    print(f"line 459: bedrock_converse( \"{mro_prompt[:50]}...\", \"{case_report[:99]}..\", temperature={temperature})")
+    print(f"LINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))), (((\"{case_report[:99]}..\"))), temperature={temperature})")
 
     inference_config = {
       "maxTokens": 4096,
@@ -502,10 +552,20 @@ async def generate_ai_response(data: PromptRequest):
   cases_json={}
   case_reports = split_report(data.context)
 
-  #for caseid in sorted(case_reports.keys()):
-    #print(f"### line 454: case {caseid}[:200]...")
-    #print(f"{case_reports[caseid][:100]}...\n\n")
+  #a={'a': 1, 'b': 2, 'c': 3}
+  while len(case_reports) > 2:
+    lastkey = list( case_reports.keys() )[-1]
+    case_reports.pop(lastkey)
+  assert( len(case_reports) == 2)
 
+  cases_json = await process_all_cases(case_reports, temperature)
+
+  print(f"E561 : {cases_json}")
+
+  #for caseid in sorted(case_reports.keys()):
+  #  print(f"### line 454: case {caseid}[:200]...")
+  #  print(f"{case_reports[caseid][:100]}...\n\n")
+  '''
   for caseid in case_reports:
     print(f"\n### line 499: case {caseid}...")
     print(f"### line 500: case {caseid} report:\n{case_reports[caseid]}[:200]\n...\n...")
@@ -531,6 +591,7 @@ async def generate_ai_response(data: PromptRequest):
 
     else:
       print(f"ERR_505 : CASE: {caseid}")
+  '''
   
   print("END WITH ALL CASES: ")
   return cases_json

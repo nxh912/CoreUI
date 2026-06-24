@@ -4,14 +4,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 ENV_REGION = "ap-southeast-1"  # Singapore
-MODEL_ID = "global.anthropic.claude-sonnet-4-6"
-MAX_TOKENS = 1000
+#MODEL_ID = "global.anthropic.claude-sonnet-4-6"
+MODEL_ID = "apac.anthropic.claude-3-5-sonnet-20241022-v2:0"
+MAX_TOKENS = 8000 ## or LIMIT: 8192
 
 class PromptRequest(BaseModel):
     instruction: str
     context: str
     temperature: float = 0.7
-    max_tokens: int = 500
+    max_tokens: int = MAX_TOKENS
+
 
 app = FastAPI(title="Cortex AI Bridge Engine")
 origins = [
@@ -461,43 +463,47 @@ async def ai_case_report_async(caseid, case_report, temperature):
   return caseid, result
 
 async def process_all_cases(case_reports, temperature):
-  # Create all tasks at once
+  semaphore = asyncio.Semaphore(5)  # limit to 5 concurrent calls
+
+  async def ai_case_report_async(caseid, case_report):
+    async with semaphore:
+      loop = asyncio.get_event_loop()
+      result = await loop.run_in_executor(
+          None,
+          lambda: ai_case_report(caseid, case_report, temperature)
+      )
+      return caseid, result
+
   tasks = [
-    ai_case_report_async(caseid, case_report, temperature)
+    ai_case_report_async(caseid, case_report)
     for caseid, case_report in case_reports.items()
   ]
 
-  print(f"TASKS :\n{ tasks }")
-
-  # Run all tasks concurrently, wait for all to finish
+  print(f"\n\nLINE 482... calling ai_case_report_async(..) \n\n")
   results = await asyncio.gather(*tasks, return_exceptions=True)
+  print(f"\n\nLINE 484... calling ai_case_report_async(..) \n\n")
 
-  cases_json = asyncio.run(process_all_cases(case_reports, temperature))
-
-  '''
   cases_json = {}
-  for caseid, s in results:
-      if isinstance(s, Exception):
-          print(f"SKIPPING case {caseid} due to exception: {s}")
-          continue
+  for item in results:
+    if isinstance(item, Exception):
+      print(f"SKIPPING due to exception: {item}")
+      continue
 
-      if not s:
-          print(f"SKIPPING case {caseid}: empty response")
-          continue
+    caseid, s = item
+    if not s:
+      print(f"SKIPPING case {caseid}: empty response")
+      continue
 
-      if isinstance(s, dict) and s.get('status') == 'error':
-          print(f"SKIPPING case {caseid}: error status")
-          continue
+    if isinstance(s, dict) and s.get('status') == 'error':
+      print(f"SKIPPING case {caseid}: error status")
+      continue
 
-      try:
-          casejson = json.loads(s)
-          cases_json[caseid] = casejson
-          print(f"------------->\n>>> case: {caseid}")
-          print(f">>> case_report snippet: {case_report[:50]}...")
-          print("<<<\n\n")
-      except Exception as e:
-          print(f"SKIPPING case {caseid}: JSON parse error: {e}")
-  '''
+    try:
+      casejson = json.loads(s)
+      cases_json[caseid] = casejson
+    except Exception as e:
+      print(f"SKIPPING case {caseid}: JSON parse error: {e}")
+
   return cases_json
 
 def ai_case_report(caseid, case_report, temperature):
@@ -506,7 +512,7 @@ def ai_case_report(caseid, case_report, temperature):
   print(f"{caseid} case_report : {case_report}\n\n(END)")
  
   try:
-    print(f"LINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))), (((\"{case_report[:99]}..\"))), temperature={temperature})")
+    print(f"LINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))),\n\t(((\"{case_report[:99]}..\"))), temperature={temperature})")
 
     inference_config = {
       "maxTokens": 4096,
@@ -528,9 +534,9 @@ def ai_case_report(caseid, case_report, temperature):
         "message": s
       }
     else:
-      print(f"line 471: s = '''{s}'''")
       casejson = json.loads(s)
       #cases_json[caseid] = casejson
+      print(f"line 471: case: {caseid}, s = '''{casejson}'''")
       return casejson
 
     print(f"LINE 474: BEDROCK returned ({caseid}):\n{case_json}\nJSON:\n{s}")
@@ -552,20 +558,20 @@ async def generate_ai_response(data: PromptRequest):
   cases_json={}
   case_reports = split_report(data.context)
 
-  #a={'a': 1, 'b': 2, 'c': 3}
+  ### 
+  ### LIMIT TO ONLY TWO CASES 
+  ### 
   while len(case_reports) > 2:
     lastkey = list( case_reports.keys() )[-1]
     case_reports.pop(lastkey)
   assert( len(case_reports) == 2)
+  ### 
+  ### LIMIT TO ONLY TWO CASES 
+  ### 
 
   cases_json = await process_all_cases(case_reports, temperature)
 
   print(f"E561 : {cases_json}")
-
-  #for caseid in sorted(case_reports.keys()):
-  #  print(f"### line 454: case {caseid}[:200]...")
-  #  print(f"{case_reports[caseid][:100]}...\n\n")
-  '''
   for caseid in case_reports:
     print(f"\n### line 499: case {caseid}...")
     print(f"### line 500: case {caseid} report:\n{case_reports[caseid]}[:200]\n...\n...")
@@ -596,50 +602,21 @@ async def generate_ai_response(data: PromptRequest):
   print("END WITH ALL CASES: ")
   return cases_json
 
-'''
-async def generate_ai_response(
-    files: List[UploadFile] = File(...), 
-    aws_client=Depends(get_aws_client)
-):
-    try:
-        # 1. Ensure at least one file was uploaded
-        if not files:
-            raise HTTPException(status_code=400, detail="No files provided")
-            
-        # 2. Read the binary content of the first file and decode it into plain text
-        first_file = files[0]
-        file_bytes = await first_file.read()
-        extracted_text = file_bytes.decode("utf-8")
-        
-        # 3. Formulate your prompt instructions for the AI
-        instruction_prompt = (
-          "You are a medical coder in a hospital. Review the clinical scenario "
-          "and extract the principal and secondary diagnoses based on the guidelines."
-        )
-        
-        # 4. Forward the text cleanly to your bedrock function matching its signature
-        ai_output = bedrock_converse(
-            instruction=instruction_prompt,
-            text=extracted_text,
-            temperature=0.7
-        )
-        
-        # 5. Return the result back to your Vue application
-        return {"output": ai_output}
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-'''
+  '''
 
 if __name__ == "__main__":
-    import uvicorn
-    filename = os.path.basename(__file__)
-    print(f"FILE : {filename}")
-    uvicorn.run(f"{filename[:-3]}:app", host="0.0.0.0", port=8000, reload=True)
-    '''testing
+  import uvicorn
+  filename = os.path.basename(__file__)
+  print(f"FILE : {filename}")
+
+  print('''
+  Starting local server. To test, use CURL:
+  
     curl -X POST -H "Content-Type: application/json" "http://127.0.0.1:8000/api/v1/mro_data" -d '{
-        "instruction": "you are super coder in health care",
-        "context": "list all specialist in medicine",
-        "temperature": 0.7
-    }
-    '''
+      "instruction": "you are super coder in health care",
+      "context": "list all specialist in medicine",
+      "temperature": 0.7
+    }      
+  
+      ''')
+  uvicorn.run(f"{filename[:-3]}:app", host="0.0.0.0", port=8000, reload=True)

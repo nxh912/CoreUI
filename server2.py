@@ -451,65 +451,26 @@ def split_report(content):
     print(f"\n====== ID_REPORT : {id} length:{ len(reports_dict[id])}")
   return reports_dict
 
-async def ai_case_report_async(caseid, case_report, temperature):
-  """Wrap your existing ai_case_report in an async executor so it doesn't block"""
-  loop = asyncio.get_event_loop()
-  # Run the blocking boto3 call in a thread pool
-  result = await loop.run_in_executor(
-      None,  # uses default ThreadPoolExecutor
-      lambda: ai_case_report(caseid, case_report, temperature)
-  )
-  return caseid, result
-
 async def process_all_cases(case_reports, temperature):
-  '''
-  semaphore = asyncio.Semaphore(1)  # limit to 5 concurrent calls
-
-  async def ai_case_report_async(caseid, case_report):
-    async with semaphore:
-      loop = asyncio.get_event_loop()
-      result = await loop.run_in_executor(
-          None,
-          lambda: ai_case_report(caseid, case_report, temperature)
-      )
-      return caseid, result
-
-  tasks = []
-  for caseid in case_reports:
-    case_report = case_reports[ caseid ]
-
-    print(f"line 480, ai_case_report_async( {caseid}, [case_report] )")
-    ai_case_report_async( caseid, case_report)
-    ai_case_report_async( caseid, case_report)
-
-    
-  print(f"\n\nLINE 483... calling ai_case_report_async(..) \n\n")
-
-  results = await asyncio.gather(*tasks, return_exceptions=True)
-  print(f"\n\nLINE 484... calling ai_case_report_async(..) \n\n")
-  '''
   cases_json = {}
 
   for caseid in case_reports:
 
-
     case_report = case_reports[ caseid ]
-
-
-
     
     s = ai_case_report( caseid, case_report, temperature)
-
-
 
     try:
       casejson = json.loads(s)
       cases_json[caseid] = casejson
-    except Exception as e:
-      print(f"SKIPPING case {caseid}: JSON parse error: {e}")
 
-  print("### 506...\ncases_json: \n")
-  print("### L512 cases_json : ", cases_json)
+      print(f"-- cases_json[ '{caseid}' ] = {cases_json[caseid]} ")
+    except Exception as e:
+      print(f"ERROR 503, SKIPPING case {caseid}: JSON parse error: {e}")
+
+  print("### 505...\ncases_json: \n")
+  print("### L508 cases_json.keys() : ", cases_json.keys())
+  print("### L509 cases_json : ", cases_json)
   return cases_json
 
 def ai_case_report(caseid, case_report, temperature):
@@ -518,7 +479,7 @@ def ai_case_report(caseid, case_report, temperature):
   print(f"{caseid} case_report : {case_report}\n\n(END)")
  
   try:
-    print(f"\n\n\n\n###\n###\nLINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))),\n\t(((\"{case_report[:99]}..\"))), temperature={temperature})")
+    print(f"\n\n\n\n###\n###\nLINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))),\n\t(((\"{case_report}..\"))), temperature={temperature})")
 
     inference_config = {
       "maxTokens": 4096,
@@ -537,7 +498,7 @@ def ai_case_report(caseid, case_report, temperature):
     if s.upper().find('ERROR') < 0:
       casejson = json.loads(s)
       #cases_json[caseid] = casejson
-      print(f"line 534: case: {caseid}, s = '''{casejson}'''")
+      print(f"line 534: ai_case_report: {caseid}, s = '''\n{casejson}\n'''")
       return casejson
     else:
       return {
@@ -564,53 +525,9 @@ async def generate_ai_response(data: PromptRequest):
   cases_json={}
   case_reports = split_report(data.context)
 
-  ### 
-  ### LIMIT TO ONLY TWO CASES 
-  ### 
-  while len(case_reports) > 2:
-    lastkey = list( case_reports.keys() )[-1]
-    case_reports.pop(lastkey)
-
-  assert( len(case_reports) == 2)
-  ### 
-  ### LIMIT TO ONLY TWO CASES 
-  ### 
-
   cases_json = await process_all_cases(case_reports, temperature)
 
   print(f"E561 : {cases_json}")
-  
-  '''
-  for caseid in case_reports:
-    print(f"\n### line 499: case {caseid}...")
-    print(f"### line 500: case {caseid} report:\n{case_reports[caseid]}[:200]\n...\n...")
-    case_report= case_reports[caseid]
-
-    s = ai_case_report(caseid, case_report, temperature)
-    if s:
-      if 'status' in s and s['status']=='error':
-        print(f"SKIPPING case: {caseid}")
-        continue
-
-      try:
-        print(f"LINE_504  s : {s}")
-        casejson = json.loads(s)
-        cases_json[caseid] = casejson
-
-        print(f"------------->\n>>> case: {caseid}")
-        print(f">>> case_report: {case_report} TEXT : \n{data.context[:50]}...")
-        print("<<<\n\n")
-        #print(f"RUNNING PROMPTS for cases: ", ".join( {case_reports.keys()} )")
-      except Exception as e:
-        raise Exception( str(e) )
-
-    else:
-      print(f"ERR_505 : CASE: {caseid}")
-  
-  print("END WITH ALL CASES: ")
-  return cases_json
-
-  '''
 
 if __name__ == "__main__":
   import uvicorn

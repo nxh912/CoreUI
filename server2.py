@@ -413,18 +413,17 @@ def bedrock_converse(instruction, text, temperature):
       modelId=MODEL_ID,
       messages=prompt,
       inferenceConfig={
-          "maxTokens": 120000,
+          "maxTokens": MAX_TOKENS,
           "temperature": temperature,
       }
     )
     
     output_text = response["output"]["message"]["content"][0]["text"]
-    print("response:\n", response)
     return clean_response(output_text)
   except Exception as e:
     print(f"\n\n\n\n\n### E417: Error invoking model: {e},\nBedrock Error: {str(e)}\n\n\n\n\n")
     #raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
-    return clean_response(f"ERROR_417: Bedrock Error: {str(e)}")
+    return clean_response(f"====ID_REPORT .. ERROR_417: Bedrock Error: {str(e)}")
 
 def split_report(content):
   report_pattern = re.compile(r'Start of Report(.*?)End of Report', re.DOTALL)
@@ -449,7 +448,7 @@ def split_report(content):
     reports_dict[case_id] = clean_report_text
 
   for id in reports_dict:
-    print(f"\n\n\n======ID_REPORT : {id} length:{ len(reports_dict[id])}")
+    print(f"\n====== ID_REPORT : {id} length:{ len(reports_dict[id])}")
   return reports_dict
 
 async def ai_case_report_async(caseid, case_report, temperature):
@@ -463,7 +462,8 @@ async def ai_case_report_async(caseid, case_report, temperature):
   return caseid, result
 
 async def process_all_cases(case_reports, temperature):
-  semaphore = asyncio.Semaphore(5)  # limit to 5 concurrent calls
+  '''
+  semaphore = asyncio.Semaphore(1)  # limit to 5 concurrent calls
 
   async def ai_case_report_async(caseid, case_report):
     async with semaphore:
@@ -474,29 +474,33 @@ async def process_all_cases(case_reports, temperature):
       )
       return caseid, result
 
-  tasks = [
-    ai_case_report_async(caseid, case_report)
-    for caseid, case_report in case_reports.items()
-  ]
+  tasks = []
+  for caseid in case_reports:
+    case_report = case_reports[ caseid ]
 
-  print(f"\n\nLINE 482... calling ai_case_report_async(..) \n\n")
+    print(f"line 480, ai_case_report_async( {caseid}, [case_report] )")
+    ai_case_report_async( caseid, case_report)
+    ai_case_report_async( caseid, case_report)
+
+    
+  print(f"\n\nLINE 483... calling ai_case_report_async(..) \n\n")
+
   results = await asyncio.gather(*tasks, return_exceptions=True)
   print(f"\n\nLINE 484... calling ai_case_report_async(..) \n\n")
-
+  '''
   cases_json = {}
-  for item in results:
-    if isinstance(item, Exception):
-      print(f"SKIPPING due to exception: {item}")
-      continue
 
-    caseid, s = item
-    if not s:
-      print(f"SKIPPING case {caseid}: empty response")
-      continue
+  for caseid in case_reports:
 
-    if isinstance(s, dict) and s.get('status') == 'error':
-      print(f"SKIPPING case {caseid}: error status")
-      continue
+
+    case_report = case_reports[ caseid ]
+
+
+
+    
+    s = ai_case_report( caseid, case_report, temperature)
+
+
 
     try:
       casejson = json.loads(s)
@@ -504,6 +508,8 @@ async def process_all_cases(case_reports, temperature):
     except Exception as e:
       print(f"SKIPPING case {caseid}: JSON parse error: {e}")
 
+  print("### 506...\ncases_json: \n")
+  print("### L512 cases_json : ", cases_json)
   return cases_json
 
 def ai_case_report(caseid, case_report, temperature):
@@ -512,7 +518,7 @@ def ai_case_report(caseid, case_report, temperature):
   print(f"{caseid} case_report : {case_report}\n\n(END)")
  
   try:
-    print(f"LINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))),\n\t(((\"{case_report[:99]}..\"))), temperature={temperature})")
+    print(f"\n\n\n\n###\n###\nLINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))),\n\t(((\"{case_report[:99]}..\"))), temperature={temperature})")
 
     inference_config = {
       "maxTokens": 4096,
@@ -528,16 +534,16 @@ def ai_case_report(caseid, case_report, temperature):
     #print(f"LINE 462: s : \"{s}\"")
 
     s = s.replace('\\n', '\n').replace('\\t', '\t')
-    if s.upper().find('ERROR') >= 0:
-      return {
-        "status": "error",
-        "message": s
-      }
-    else:
+    if s.upper().find('ERROR') < 0:
       casejson = json.loads(s)
       #cases_json[caseid] = casejson
-      print(f"line 471: case: {caseid}, s = '''{casejson}'''")
+      print(f"line 534: case: {caseid}, s = '''{casejson}'''")
       return casejson
+    else:
+      return {
+        "status": "error_538",
+        "message": s
+      }
 
     print(f"LINE 474: BEDROCK returned ({caseid}):\n{case_json}\nJSON:\n{s}")
 
@@ -564,6 +570,7 @@ async def generate_ai_response(data: PromptRequest):
   while len(case_reports) > 2:
     lastkey = list( case_reports.keys() )[-1]
     case_reports.pop(lastkey)
+
   assert( len(case_reports) == 2)
   ### 
   ### LIMIT TO ONLY TWO CASES 
@@ -572,6 +579,8 @@ async def generate_ai_response(data: PromptRequest):
   cases_json = await process_all_cases(case_reports, temperature)
 
   print(f"E561 : {cases_json}")
+  
+  '''
   for caseid in case_reports:
     print(f"\n### line 499: case {caseid}...")
     print(f"### line 500: case {caseid} report:\n{case_reports[caseid]}[:200]\n...\n...")
@@ -597,7 +606,6 @@ async def generate_ai_response(data: PromptRequest):
 
     else:
       print(f"ERR_505 : CASE: {caseid}")
-  '''
   
   print("END WITH ALL CASES: ")
   return cases_json

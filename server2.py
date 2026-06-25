@@ -9,11 +9,37 @@ MODEL_ID = "apac.anthropic.claude-3-5-sonnet-20241022-v2:0"
 MAX_TOKENS = 8000 ## or LIMIT: 8192
 
 class PromptRequest(BaseModel):
-    instruction: str
-    context: str
-    temperature: float = 0.7
-    max_tokens: int = MAX_TOKENS
+  instruction: str
+  context: str
+  temperature: float = 0.7
+  max_tokens: int = MAX_TOKENS
 
+class Colors:
+  """ ANSI color codes """
+  BLACK = "\033[0;30m"
+  RED = "\033[0;31m"
+  GREEN = "\033[0;32m"
+  BROWN = "\033[0;33m"
+  BLUE = "\033[0;34m"
+  PURPLE = "\033[0;35m"
+  CYAN = "\033[0;36m"
+  LIGHT_GRAY = "\033[0;37m"
+  DARK_GRAY = "\033[1;30m"
+  LIGHT_RED = "\033[1;31m"
+  LIGHT_GREEN = "\033[1;32m"
+  YELLOW = "\033[1;33m"
+  LIGHT_BLUE = "\033[1;34m"
+  LIGHT_PURPLE = "\033[1;35m"
+  LIGHT_CYAN = "\033[1;36m"
+  LIGHT_WHITE = "\033[1;37m"
+  BOLD = "\033[1m"
+  FAINT = "\033[2m"
+  ITALIC = "\033[3m"
+  UNDERLINE = "\033[4m"
+  BLINK = "\033[5m"
+  NEGATIVE = "\033[7m"
+  CROSSED = "\033[9m"
+  END = "\033[0m"
 
 app = FastAPI(title="Cortex AI Bridge Engine")
 origins = [
@@ -405,7 +431,7 @@ def bedrock_converse(instruction, text, temperature):
       region_name=ENV_REGION
   )
 
-  print(f"### E399: Converse api, region : '{ENV_REGION}'")
+  print(f"### L399: Converse api, region : '{ENV_REGION}'")
   prompt = get_prompt(instruction, text)
 
   try:
@@ -421,7 +447,7 @@ def bedrock_converse(instruction, text, temperature):
     output_text = response["output"]["message"]["content"][0]["text"]
     return clean_response(output_text)
   except Exception as e:
-    print(f"\n\n\n\n\n### E417: Error invoking model: {e},\nBedrock Error: {str(e)}\n\n\n\n\n")
+    print(f"\n\n\n\n\n### E417: Error invoking model: {e},\n{Colors.LIGHT_RED}Bedrock Error: {str(e)}{Colors.END}\n\n\n\n\n")
     #raise HTTPException(status_code=500, detail=f"Bedrock Error: {str(e)}")
     return clean_response(f"====ID_REPORT .. ERROR_417: Bedrock Error: {str(e)}")
 
@@ -467,8 +493,8 @@ async def process_all_cases(case_reports, temperature):
 
       print(f"LINE 468 -- cases_json['{caseid}'] = '''{cases_json[caseid]}''' ")
     except Exception as e:
-      print(f"ERROR 470, SKIPPING case {caseid}: JSON parse error: {e}")
-
+      print(f"{Colors.LIGHT_PURPLE}ERROR 470, SKIPPING case {caseid}{Colors.END}: JSON parse error: {Colors.CYAN}{e}{Colors.END}")
+ 
   print("### 505...\ncases_json: \n")
   print("### L508 cases_json.keys() : ", cases_json.keys())
   print("### L509 cases_json : ", cases_json)
@@ -476,8 +502,8 @@ async def process_all_cases(case_reports, temperature):
 
 def ai_case_report(caseid, case_report, temperature):
   print(f"\nLINE 454 --- ai_case_report( {caseid}, [..case_report..] )")
-  print(f"{caseid} caseid : {caseid}")
-  print(f"{caseid} case_report : {case_report}\n\n(END)")
+  #print(f"{caseid} caseid : {caseid}")
+  #print(f"{caseid} case_report : {case_report}\n\n(END)")
  
   try:
     print(f"\n\n\n\n###\n###\nLINE 459: bedrock_converse( \n\t((({mro_prompt[:50]}...))),\n\t(((\"{case_report}..\"))), temperature={temperature})")
@@ -501,7 +527,8 @@ def ai_case_report(caseid, case_report, temperature):
       casejson['CaseID'] = caseid
       #cases_json[caseid] = casejson
       print(f"ERROR line 534: ai_case_report: {caseid}, s = '''\n{casejson}\n'''")
-      return casejson
+      #return {casejson}
+      return {}
     else:
       return {
         "status": "error_538",
@@ -536,14 +563,13 @@ if __name__ == "__main__":
   filename = os.path.basename(__file__)
   print(f"FILE : {filename}")
 
+  print(Colors.LIGHT_GREEN)
   print('''
-  Starting local server. To test, use CURL:
   
     curl -X POST -H "Content-Type: application/json" "http://127.0.0.1:8000/api/v1/mro_data" -d '{
       "instruction": "you are super coder in health care",
       "context": "list all specialist in medicine",
       "temperature": 0.7
-    }      
-  
-      ''')
+    } ''')
+  print(Colors.END)
   uvicorn.run(f"{filename[:-3]}:app", host="0.0.0.0", port=8000, reload=True)

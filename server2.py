@@ -462,11 +462,12 @@ async def process_all_cases(case_reports, temperature):
 
     try:
       casejson = json.loads(s)
+
       cases_json[caseid] = casejson
 
-      print(f"-- cases_json[ '{caseid}' ] = {cases_json[caseid]} ")
+      print(f"LINE 468 -- cases_json['{caseid}'] = '''{cases_json[caseid]}''' ")
     except Exception as e:
-      print(f"ERROR 503, SKIPPING case {caseid}: JSON parse error: {e}")
+      print(f"ERROR 470, SKIPPING case {caseid}: JSON parse error: {e}")
 
   print("### 505...\ncases_json: \n")
   print("### L508 cases_json.keys() : ", cases_json.keys())
@@ -497,8 +498,9 @@ def ai_case_report(caseid, case_report, temperature):
     s = s.replace('\\n', '\n').replace('\\t', '\t')
     if s.upper().find('ERROR') < 0:
       casejson = json.loads(s)
+      casejson['CaseID'] = caseid
       #cases_json[caseid] = casejson
-      print(f"line 534: ai_case_report: {caseid}, s = '''\n{casejson}\n'''")
+      print(f"ERROR line 534: ai_case_report: {caseid}, s = '''\n{casejson}\n'''")
       return casejson
     else:
       return {
